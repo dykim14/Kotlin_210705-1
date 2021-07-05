@@ -61,6 +61,29 @@ class User(
 ) {
 
     // 객체 동등성을 위해서 equals에 대한 정의가 필요합니다.
+    // 차이점
+    // @Override -> override
+    // Object    -> Any?(Nullable)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        if (other === null) {
+            return false
+        }
+        // Any? -> Any
+
+        if (other !is User) {
+            return false
+        }
+        // Any -> User
+
+        return name == other.name && age == other.age
+
+        // Kotlin - Smart Cast
+        // : 컴파일러가 코드를 분석해서, 타입을 자동으로 추론합니다.
+    }
 }
 
 fun main() {
