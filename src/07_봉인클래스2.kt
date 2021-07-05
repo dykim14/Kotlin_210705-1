@@ -60,10 +60,46 @@ fun main() {
     // => 코틀린에서는 삼항 연산자가 존재하지 않습니다.
     val n = 10
 
+    // val result = n < 10 ? "Tom" : "Bob" -  compile error!
 
-    // val result = n < 10 ? "Tom" : "Bob"
-    val result = if (n < 10) "Tom" else "Bob"
-    
+    // val result = if (n < 10) "Tom" else "Bob"
+
+    /*
+    val result = if (n < 10) "Tom"
+    else if (n < 0) "Bob"
+    else "Alice"
+    */
+    val result = when {
+        n < 10 -> "Tom"
+        n < 0 -> "Bob"
+        else -> "Alice"
+    }
+    println(result)
+
+    // 기본 연산자를 사용하는 방법도 변경되었습니다.
+    // val a = 0xf0f0
+    val a = 0b1111000011110000
+    println(a)
+
+    //   Java:  <<,  >>,  >>>,   &,  |,   ^,   ~
+    // Kotlin: shl, shr, ushr, and, or, xor, inv
+    println(a shl 3)
+    println(a shr 3)
+    println(a ushr 3)
+    println(a and 0b1111)
+    println(a or 0b1111)
+    println(a xor 0b1111)
+    println(a.inv())
+
+    // for-loop
+    // 1 ~ 10
+
+
+    // Range
+    // Java: for (int i = 1; i <= 10; i++) {}
+    for (i in 1..10) {
+        println(i)
+    }
 }
 
 
