@@ -22,7 +22,7 @@ package ex6
 //   private String name;
 // }
 
-open class Car(val name: String) {
+open class Car(open val name: String) {
     open fun display() {
         println("Car - $name")
     }
@@ -30,6 +30,10 @@ open class Car(val name: String) {
 // open class Car
 
 class Truck(name: String) : Car(name) {
+    override val name: String
+        get() {
+            return "T${super.name}"
+        }
 
     override fun display() {
         println("Truck - $name")
