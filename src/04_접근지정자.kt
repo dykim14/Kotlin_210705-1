@@ -30,6 +30,7 @@ package ex4
 //  private: 같은 파일에서만 접근이 가능합니다.
 
 internal class User {
+    private var address: String = ""
     protected var name: String = ""
     internal var age: Int = 0
 }
