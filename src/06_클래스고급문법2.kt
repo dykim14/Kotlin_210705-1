@@ -35,7 +35,6 @@ class Button : Clickable, Focusable {
         super<Clickable>.showOff()
     }
 
-
     override fun click() {
         println("Button click")
     }
