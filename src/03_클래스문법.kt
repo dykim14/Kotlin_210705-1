@@ -37,10 +37,20 @@ class User {
 */
 // 5. constructor의 역활이 필드를 초기화하는 역활만 수행한다면,
 //    아래와 같이 작성할 수 있습니다.
+/*
 class User constructor(
     private var name: String,
     private var age: Int
 )
+*/
+
+// 5. constructor가 아무런 지정자가 존재하지 않으면,
+//    생략 가능합니다.
+class User(
+    private var name: String,
+    private var age: Int
+)
+
 
 
 
