@@ -12,12 +12,12 @@ interface Clickable {
     }
 }
 
-class Button implements Clickable {
-    @Override
-    public void click() {
-
-    }
-}
+//class Button implements Clickable {
+//    @Override
+//    public void click() {
+//
+//    }
+//}
 
 
 public class Sample {
