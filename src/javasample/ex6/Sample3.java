@@ -29,10 +29,10 @@ class Button implements View {
 
     // Nested class: static class ButtonState
     private static class ButtonState implements State {
-        private int x;
-        private int y;
-        private int width;
-        private int height;
+        private final int x;
+        private final int y;
+        private final int width;
+        private final int height;
 
         public ButtonState(int x, int y, int width, int height) {
             this.x = x;
