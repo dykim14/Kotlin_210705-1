@@ -26,13 +26,20 @@ fun main() {
 }
 */
 
+/*
 sealed class Expr
 // 다른 파일에서 Expr 클래스의 자식 클래스를 생성할 수 없습니다.
 // 오직 같은 파일에서만 허용합니다.
 // => 봉인된 클래스
+//    봉인된 인터페이스(1.4)
 
 class Num(val value: Int) : Expr()
 class Sum(val left: Expr, val right: Expr) : Expr()
+*/
+
+sealed interface Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Expr, val right: Expr) : Expr
 
 fun eval(e: Expr): Int {
     return when (e) {
