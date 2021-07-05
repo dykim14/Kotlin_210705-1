@@ -14,7 +14,7 @@ public class User {
     // 접근자 메소드
     // - getter
     public String getName() {
-        return name;
+        return name + ", Hello";
     }
 
     public int getAge() {
@@ -26,7 +26,7 @@ public class User {
         this.name = name;
     }
 
-    private void setAge(int age) {
-        this.age = age;
+    public void setAge(int age) {
+        this.age = age + 1;
     }
 }

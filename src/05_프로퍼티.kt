@@ -1,6 +1,8 @@
 // 05_프로퍼티.kt
 package ex5
+
 import javasample.ex5.User as JUser
+
 // 이름 충돌이 발생할 경우, aliasing을 통해 해결할 수 있습니다.
 
 // 프로퍼티(property)
@@ -14,9 +16,16 @@ class User {
     //  getter + setter: var
     //           getter: val
     var name: String
+        get() {
+            // return name
+            return "$field, Hello"
+        }
         private set
 
     var age: Int
+        set(value) {
+            field = value + 1
+        }
 
     constructor(name: String, age: Int) {
         this.name = name
@@ -25,13 +34,14 @@ class User {
 }
 
 fun main() {
-    val user = JUser("Tom", 42)
+    val user = User("Tom", 42)
 
     val name = user.name  // getName
+    println(name)
     var age = user.age    // getAge
 
     // user.name = "Bob"    // setName
-    // user.age = 10        // setAge
+    // user.age = 10       // setAge
 }
 
 
