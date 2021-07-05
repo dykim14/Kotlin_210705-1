@@ -22,12 +22,18 @@ package ex6
 //   private String name;
 // }
 
+
+// open: Soft Keyword
+//   - 단독으로 사용될 경우, 키워드가 아닙니다.
+//   - class와 함께 사용될 경우 키워드로 취급됩니다.
+
 open class Car(open val name: String) {
     open fun display() {
         println("Car - $name")
     }
+
+    fun open() {}
 }
-// open class Car
 
 class Truck(name: String) : Car(name) {
     override val name: String
