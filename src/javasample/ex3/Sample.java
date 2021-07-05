@@ -6,6 +6,10 @@ package javasample.ex3;
 import java.util.Objects;
 
 // Object.equals에 대한 재정의를 통해 객체 동등성 판단을 수행할 수 있습니다.
+// 자바에서 객체 동등성 판단에 사용되는 메소드 2가지
+//  1. Object.equals
+//  2. Object.hashCode
+// => equals를 재정의하면, 반드시 hashCode도 제공해야 합니다.
 class User {
     private String name;
     private int age;
@@ -50,6 +54,11 @@ class User {
         // => equals를 사용하는 객체가 null인지 체크해야 합니다.
         return Objects.equals(name, other.name) && age == other.age;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
 }
 
 
@@ -66,7 +75,8 @@ public class Sample {
         }
 
         // 객체 동등성 판단을 위해서는, equals에 대한 정의가 필요합니다.
-        if (user1.equals(user2)) {
+        // if (user1.equals(user2)) {
+        if (Objects.equals(user1, user2)) {
             System.out.println("객체 동등합니다.");
         } else {
             System.out.println("객체 동등하지 않습니다.");
