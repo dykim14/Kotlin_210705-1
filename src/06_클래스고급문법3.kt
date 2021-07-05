@@ -44,6 +44,18 @@ class Button(
     }
 }
 
+// 상속이 가능합니다.
+abstract class Car {
+    // 오버라이딩이 가능합니다.
+    abstract fun go()
+}
+
+class Truck : Car() {
+    override fun go() {
+    }
+}
+
+
 // 코틀린에서는 예외처리가 강제가 아닙니다.
 //  => 예외가 발생할 경우, 처리되지 않은 예외로 인해서, 런타임 오류가 발생할 가능성이
 //     있습니다.
