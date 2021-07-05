@@ -19,6 +19,12 @@ enum class Color(
     ORANGE(255, 165, 0),
     YELLOW(255, 255, 0),
     GREEN(0, 255, 0)
+    ;
+
+    // 메소드를 정의하기 위해서는 반드시 토큰의 분리를 표시해야 합니다
+    fun rgb(): Int {
+        return (red * 255 + green) * 255 + blue
+    }
 }
 
 fun main() {
