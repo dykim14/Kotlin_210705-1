@@ -42,5 +42,9 @@ public class Sample2 {
     public static void main(String[] args) {
         Person person = new Person("Gildong", "Hong");
         System.out.println(person.getFullName());
+
+        person.setFullName("Soonshin, Lee");
+        System.out.println(person.getFirstName());
+        System.out.println(person.getLastName());
     }
 }

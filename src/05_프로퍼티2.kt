@@ -21,4 +21,8 @@ class Person(
 fun main() {
     val person = Person("Gildong", "Hong")
     println(person.fullName)
+
+    person.fullName = "Soonshin, Lee"
+    println(person.firstName)
+    println(person.lastName)
 }
