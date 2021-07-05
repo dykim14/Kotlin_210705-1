@@ -32,7 +32,7 @@ open class Car(val name: String) {
 class Truck(name: String) : Car(name) {
 
     override fun display() {
-
+        println("Truck - $name")
     }
 }
 
