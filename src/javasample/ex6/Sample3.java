@@ -1,5 +1,8 @@
 package javasample.ex6;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 interface State extends Serializable {
@@ -71,9 +74,14 @@ class Button implements View {
     }
 }
 
-
 public class Sample3 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        // Sava State
+        Button button = new Button(10, 20, 30, 40);
+        State state = button.getCurrentState();
 
+        FileOutputStream fos = new FileOutputStream("button.dat");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(state);
     }
 }
