@@ -105,9 +105,9 @@ public class Sample2 {
         // Person p2 = new Person(a, c, b);
 
         Person person = new Person.Builder(a)
-//                .setAddress(b)
-//                .setPhone(c)
-//                .setAge(d)
+                .setAddress(b)
+                .setPhone(c)
+                .setAge(d)
                 .build();
     }
 }
