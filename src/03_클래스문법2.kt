@@ -19,3 +19,23 @@ class Car {
         println("Car go - ${speed}km/s $color $destination")
     }
 }
+
+fun main() {
+    // final Car car = new Car()
+    val car = Car()
+    val a = 100
+    val b = 0xff0000 // Red
+    val c = "Suwon"
+
+    car.go()
+    car.go(a)
+    car.go(a, b)
+    car.go(a, b, c)
+}
+
+
+
+
+
+
+
