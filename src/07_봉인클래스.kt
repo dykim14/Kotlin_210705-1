@@ -30,4 +30,6 @@ enum class Color(
 fun main() {
     val color = Color.ORANGE
     print(color.green)
+
+    print(color.rgb())
 }
