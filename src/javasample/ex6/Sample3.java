@@ -1,9 +1,6 @@
 package javasample.ex6;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 interface State extends Serializable {
 }
@@ -27,7 +24,11 @@ class Button implements View {
         this.height = height;
     }
 
-    private class ButtonState implements State {
+    //  Inner class: class ButtonState
+    //   : 외부 객체(Button 참조)의 참조를 소유하고 있습니다.
+
+    // Nested class: static class ButtonState
+    private static class ButtonState implements State {
         private int x;
         private int y;
         private int width;
@@ -75,13 +76,25 @@ class Button implements View {
 }
 
 public class Sample3 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
         // Sava State
+        /*
         Button button = new Button(10, 20, 30, 40);
         State state = button.getCurrentState();
 
         FileOutputStream fos = new FileOutputStream("button.dat");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(state);
+        */
+
+        Button button = new Button(30, 20, 10, 20);
+        FileInputStream fis = new FileInputStream("button.dat");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        State s = (State) ois.readObject();
+        button.restoreState(s);
+
+        System.out.println(button);
     }
 }
