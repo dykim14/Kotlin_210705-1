@@ -91,6 +91,8 @@ class Person {
     }
 }
 
+// Effective Java
+// : 생성자의 인자가 많을 경우 빌더를 고려해라
 
 public class Sample2 {
     public static void main(String[] args) {
@@ -103,9 +105,9 @@ public class Sample2 {
         // Person p2 = new Person(a, c, b);
 
         Person person = new Person.Builder(a)
-                .setAddress(b)
-                .setPhone(c)
-                .setAge(d)
+//                .setAddress(b)
+//                .setPhone(c)
+//                .setAge(d)
                 .build();
     }
 }

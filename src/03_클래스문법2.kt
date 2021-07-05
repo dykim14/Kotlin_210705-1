@@ -1,6 +1,7 @@
 // 03_클래스문법2.kt
 package ex3_2
 
+/*
 class Car {
     fun go() {
         println("Car go")
@@ -53,9 +54,32 @@ fun main() {
         destination = c,
     )
 }
+*/
 
+// 코틀린에서 생성자의 인자가 많을 경우,
+// 코드를 작성하는 방법
+//  1) 파라미터 지정 호출
+//  2) 파라미터 기본값
 
+class Person(
+    val name: String,
+    val address: String = "",
+    val phone: String = "",
+    val age: Int = 0
+)
 
+fun main() {
+    val person1 = Person(
+        name = "Tom",
+        address = "Suwon",
+        phone = "000-1111-2222",
+        age = 10
+    )
+
+    val person2 = Person(
+        name = "Tom",
+    )
+}
 
 
 
