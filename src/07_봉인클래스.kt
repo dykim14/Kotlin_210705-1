@@ -34,21 +34,37 @@ enum class Color(
 //  - Statement은 결과가 존재하지 않습니다.
 //  - Expression은 결과가 존재합니다.
 
+fun getWarmth(color: Color): String {
+    return when (color) {
+        Color.RED, Color.ORANGE, Color.YELLOW -> "Warm"
+        Color.BLUE, Color.GREEN -> "Cold"
+    }
+}
+
 fun getName(color: Color): String {
+    // Statement
+    /*
     when (color) {
         Color.RED -> return "RED"
         Color.BLUE -> return "BLUE"
         Color.GREEN -> return "GREEN"
         else -> return "UNKNOWN"
     }
+    */
+    return when (color) {
+        Color.RED -> "RED"
+        Color.BLUE -> "BLUE"
+        Color.GREEN -> "GREEN"
+        else -> "UNKNOWN"
+    }
 }
 
-
-
-
 fun main() {
-    val color = Color.ORANGE
-    print(color.green)
+    val color = Color.BLUE
+    println(color.green)
 
-    print(color.rgb())
+    println(color.rgb())
+
+    val name = getWarmth(color)
+    println(name)
 }
