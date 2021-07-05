@@ -44,12 +44,19 @@ class User constructor(
 )
 */
 
-// 5. constructor가 아무런 지정자가 존재하지 않으면,
+// 6. constructor가 아무런 지정자가 존재하지 않으면,
 //    생략 가능합니다.
 class User(
     private var name: String,
     private var age: Int
 )
+
+fun main() {
+    // Java: User user = new User("Tom", 42);
+
+    // var user: User = User("Tom", 42)
+    var user = User("Tom", 42)
+}
 
 
 
