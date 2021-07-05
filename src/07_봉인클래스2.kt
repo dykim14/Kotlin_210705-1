@@ -20,6 +20,7 @@ fun main() {
     val left = Num(10)
     val right = Num(20)
     val sum = Sum(left, right)
+    val sum2 = Sum(left, sum)
 
-    println(eval(sum))
+    println(eval(sum2))
 }
