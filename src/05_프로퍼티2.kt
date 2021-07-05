@@ -3,6 +3,7 @@ package ex5_2
 
 
 // Backing Field가 없는 프로퍼티
+//  => field 키워드를 사용할 수 없습니다.
 class Person(
     var firstName: String,
     var lastName: String
