@@ -80,7 +80,6 @@ class User(
         // Any -> User
 
         return name == other.name && age == other.age
-
         // Kotlin - Smart Cast
         // : 컴파일러가 코드를 분석해서, 타입을 자동으로 추론합니다.
     }
