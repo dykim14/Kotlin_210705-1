@@ -55,4 +55,22 @@ fun main() {
     val sum2 = Sum(left, sum)
 
     println(eval(sum2))
+
+    // if 조건도 Expression 입니다.
+    // => 코틀린에서는 삼항 연산자가 존재하지 않습니다.
+    val n = 10
+
+
+    // val result = n < 10 ? "Tom" : "Bob"
+    val result = if (n < 10) "Tom" else "Bob"
+    
 }
+
+
+
+
+
+
+
+
+
