@@ -13,12 +13,32 @@ package ex6
 //    > 상속을 위한 설계와 문서를 갖추거나, 그럴 수 없다면 상속을 금지해라.
 // 2. 상속이 가능한 클래스
 //    open class Car
+// 3. 클래스의 메소드는 기본적으로 오버라이딩이 금지되어있습니다.
+//    Kotlin: fun foo() {}
+//      Java: final void foo() {}
+//   => 오버라이딩을 허용하기 위해서는 open 키워드를 통해 메소드를 작성해야 합니다.
 
 // public final class Car {
 //   private String name;
 // }
 
-open class Car(val name: String)
+open class Car(val name: String) {
+    open fun display() {
+        println("Car - $name")
+    }
+}
 // open class Car
 
-class Truck(name: String) : Car(name) 
+class Truck(name: String) : Car(name) {
+
+    override fun display() {
+
+    }
+}
+
+fun main() {
+    val car: Car = Truck("Dump")
+    car.display()
+}
+
+
