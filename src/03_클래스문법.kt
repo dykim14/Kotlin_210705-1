@@ -73,11 +73,20 @@ class User(
             return false
         }
         // Any? -> Any
-
+        /*
+        // Smart Cast: Any -> User
         if (other !is User) {
             return false
         }
-        // Any -> User
+        */
+        // 스마트 캐스트가 동작하지 않습니다.
+        if (other.javaClass != User::class.java) {
+            return false
+        }
+
+        // 명시적인 캐스트가 필요합니다.
+        other as User
+
 
         return name == other.name && age == other.age
         // Kotlin - Smart Cast
