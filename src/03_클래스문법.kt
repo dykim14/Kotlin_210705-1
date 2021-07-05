@@ -60,6 +60,7 @@ class User(
     private var age: Int
 ) {
 
+    // 객체 동등성을 위해서 equals에 대한 정의가 필요합니다.
 }
 
 fun main() {
@@ -68,7 +69,7 @@ fun main() {
     // Kotlin
     // : new 키워드를 사용하지 않습니다.
     // var user: User = User("Tom", 42)
-    var user1: User? = null
+    var user1: User? = User("Tom", 42)
     var user2: User? = User("Tom", 42)
 
     if (user1 === user2) {
@@ -82,7 +83,6 @@ fun main() {
     } else {
         println("객체 동등 X")
     }
-
 }
 
 
