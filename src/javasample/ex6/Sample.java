@@ -1,6 +1,9 @@
 package javasample.ex6;
 
 interface Clickable {
+    // int N = 10;
+    // public static int N = 10
+
     void click();
 
     // Java 8 - default method(defender method)
