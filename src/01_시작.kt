@@ -54,6 +54,8 @@ fun main(args: Array<String>) {
     println("Hello, Kotlin")
 }
 /*
+
+// fun main(args: Array<String>)
 public final class HelloKt {
   public static final void main(java.lang.String[]);
     Code:
@@ -69,6 +71,26 @@ public final class HelloKt {
       15: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
       18: return
 }
+
+// fun main()
+public final class HelloKt {
+  public static final void main();
+    Code:
+       0: ldc           #8                  // String Hello, Kotlin
+       2: astore_0
+       3: iconst_0
+       4: istore_1
+       5: getstatic     #14                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       8: aload_0
+       9: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+      12: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: invokestatic  #23                 // Method main:()V
+       3: return
+}
+
 */
 
 // $ kotlinc Hello.kt
