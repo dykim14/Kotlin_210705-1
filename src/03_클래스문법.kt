@@ -46,15 +46,21 @@ class User constructor(
 
 // 6. constructor가 아무런 지정자가 존재하지 않으면,
 //    생략 가능합니다.
-class User(
-    private var name: String,
-    private var age: Int
-)
 
 // 7. 동등성 비교
 //  Java
 //    user1 == user2     : 참조 동등성
 //    user1.equals(user2): 객체 동등성
+//  Kotlin
+//    user1 === user2 : 참조 동등성
+//    user1 == user2  : 객체 동등성(equals)
+
+class User(
+    private var name: String,
+    private var age: Int
+) {
+
+}
 
 fun main() {
     // Java: User user = new User("Tom", 42);
@@ -65,7 +71,13 @@ fun main() {
     var user1 = User("Tom", 42)
     var user2 = User("Tom", 42)
 
-    // Java
+    if (user1 === user2) {
+        println("참조 동등")
+    }
+
+    if (user1 == user2) {
+        println("객체 동등")
+    }
 
 }
 
