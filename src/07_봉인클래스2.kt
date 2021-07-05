@@ -94,11 +94,27 @@ fun main() {
     // for-loop
     // 1 ~ 10
 
-
     // Range
     // Java: for (int i = 1; i <= 10; i++) {}
+    // 1 ~ 10
     for (i in 1..10) {
-        println(i)
+        print(i)
+    }
+    println()
+
+    // Java: for (int i = 0 ; i < 10; i++) {}
+    for (i in 0 until 10) {
+        print(i)
+    }
+    println()
+
+    for (i in 0..10 step 2) {
+        print(i)
+    }
+    println()
+
+    for (i in 10 downTo 1) {
+        print(i)
     }
 }
 
