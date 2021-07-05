@@ -1,8 +1,6 @@
 // 02_기본문법.kt
 package ex2
 
-import java.util.*
-
 // 1. main 함수 만드는 방법
 //  - fun main(args: Array<String>) {
 //  - Kotlin 1.3 이후 - args 생략할 수 있습니다.

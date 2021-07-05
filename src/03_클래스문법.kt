@@ -40,6 +40,7 @@ class User {
 // 5. constructor의 역활이 필드를 초기화하는 역활만 수행한다면,
 //    아래와 같이 작성할 수 있습니다.
 /*
+// Primary Constructor(주 생성자)
 class User constructor(
     private var name: String,
     private var age: Int
@@ -52,7 +53,8 @@ class User constructor(
 // 7. 동등성 비교
 //  Java
 //    user1 == user2     : 참조 동등성
-//    user1.equals(user2): 객체 동등성
+//    user1 != null && user1.equals(user2): 객체 동등성
+//    : Objects.equals(user1, user2)
 //  Kotlin
 //    user1 === user2 : 참조 동등성
 //    user1 == user2  : 객체 동등성(equals)
