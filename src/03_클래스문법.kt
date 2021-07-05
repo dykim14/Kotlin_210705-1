@@ -23,6 +23,7 @@ public class User {
 class Person {
 }
 
+// 4. 생성자는 constructor 함수를 통해 만들 수 있습니다.
 class User {
     private var name: String
     private var age: Int
