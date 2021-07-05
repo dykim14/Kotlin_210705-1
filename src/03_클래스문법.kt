@@ -51,13 +51,22 @@ class User(
     private var age: Int
 )
 
+// 7. 동등성 비교
+//  Java
+//    user1 == user2     : 참조 동등성
+//    user1.equals(user2): 객체 동등성
+
 fun main() {
     // Java: User user = new User("Tom", 42);
 
     // Kotlin
     // : new 키워드를 사용하지 않습니다.
     // var user: User = User("Tom", 42)
-    var user = User("Tom", 42)
+    var user1 = User("Tom", 42)
+    var user2 = User("Tom", 42)
+
+    // Java
+
 }
 
 

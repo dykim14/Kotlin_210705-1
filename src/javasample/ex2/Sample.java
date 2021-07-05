@@ -1,4 +1,4 @@
-package java.ex2;
+package javasample.ex2;
 
 public class Sample {
     static void foo() {}
