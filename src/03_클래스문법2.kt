@@ -39,6 +39,19 @@ fun main() {
     */
 
     car.go(speed = a, color = b, destination = c)
+    car.go(color = a, speed = b, destination = c)
+
+    // Kotlin 1.4
+    // 순서가 일치할 경우, 부분 지정이 가능합니다.
+    car.go(a, color = b, destination = c)
+    car.go(speed = a, b, destination = c)
+
+    // => Trailing comma
+    car.go(
+        speed = a,
+        color = b,
+        destination = c,
+    )
 }
 
 
