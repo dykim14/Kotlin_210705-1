@@ -24,6 +24,7 @@ class Person {
 }
 
 // 4. 생성자는 constructor 함수를 통해 만들 수 있습니다.
+/*
 class User {
     private var name: String
     private var age: Int
@@ -33,6 +34,14 @@ class User {
         this.age = age
     }
 }
+*/
+// 5. constructor의 역활이 필드를 초기화하는 역활만 수행한다면,
+//    아래와 같이 작성할 수 있습니다.
+class User constructor(
+    private var name: String,
+    private var age: Int
+)
+
 
 
 
