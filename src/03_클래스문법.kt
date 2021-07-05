@@ -54,6 +54,8 @@ class User(
 fun main() {
     // Java: User user = new User("Tom", 42);
 
+    // Kotlin
+    // : new 키워드를 사용하지 않습니다.
     // var user: User = User("Tom", 42)
     var user = User("Tom", 42)
 }
