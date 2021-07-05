@@ -7,9 +7,14 @@ class Person(
     var firstName: String,
     var lastName: String
 ) {
-    val fullName: String
+    var fullName: String
         get() {
             return "$firstName, $lastName"
+        }
+        set(value) {
+            val arr = value.split(", ")
+            firstName = arr[0]
+            lastName = arr[1]
         }
 }
 

@@ -29,6 +29,12 @@ class Person {
     public String getFullName() {
         return firstName + ", " + lastName;
     }
+
+    public void setFullName(String fullName) {
+        String[] arr = fullName.split(", ");
+        firstName = arr[0];
+        lastName = arr[1];
+    }
 }
 
 
