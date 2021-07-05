@@ -65,10 +65,15 @@ fun main() {
 //    Java - int n = 42
 //  Kotlin - var n: Int = 42  : 명시적인 타입 선언
 //           var n = 42       : 암묵적인 타입 추론
+//
+//  var: 변수
+//  val: 초기화 이후에 값이 변경되지 않는 변수(상수)
+//   Java - final int n = 42
+// Kotlin - val n = 42
 
 fun main() {
     // 3.14.toString()
-    var n: Int = 42
+    val n: Int = 42
     var a: Long = n.toLong()
 }
 
