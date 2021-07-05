@@ -8,7 +8,6 @@ enum class Color {
     RED, ORANGE, YELLOW, GREEN
 }
 */
-
 enum class Color(
     val red: Int,
     val green: Int,
@@ -26,6 +25,26 @@ enum class Color(
         return (red * 255 + green) * 255 + blue
     }
 }
+
+//   Java: switch-case
+// Kotlin: switch-case statement(문) 이 존재하지 않습니다.
+//         when expression(식)을 통해 대체할 수 있습니다.
+
+// Statement vs Expression
+//  - Statement은 결과가 존재하지 않습니다.
+//  - Expression은 결과가 존재합니다.
+
+fun getName(color: Color): String {
+    when (color) {
+        Color.RED -> return "RED"
+        Color.BLUE -> return "BLUE"
+        Color.GREEN -> return "GREEN"
+        else -> return "UNKNOWN"
+    }
+}
+
+
+
 
 fun main() {
     val color = Color.ORANGE
