@@ -91,10 +91,25 @@ public final class HelloKt {
        3: return
 }
 
-*/
-
 // $ kotlinc Hello.kt
 //  : HelloKt.class
+
+Exception in thread "main" java.lang.NoClassDefFoundError: kotlin/jvm/internal/Intrinsics
+ : 코틀린이 사용하는 기능에 대한 클래스가 로드되지 않아서 발생합니다.
+
+// 해결방법
+1) kotlin
+$ kotlin HelloKt
+
+2) 코틀린이 빌드할 때, 코틀린의 런타임에 필요한 클래스를 같이 묶으면 됩니다.
+$ kotlinc Hello.kt -include-runtime -d Hello.jar
+$ java -jar Hello.jar
+
+*/
+
+// REPL(Read-Eval-Print-Loop)
+//  => python, nodejs
+//  $ kotlinc-jvm
 
 
 
