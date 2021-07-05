@@ -22,9 +22,21 @@ package ex4
 //             다른 모듈에서 동일한 이름의 패키지를 사용하더라도
 //             접근이 불가능합니다.
 
-class User {
+// class, interface, enum
+// fun, var, val 에 대해서도 접근지정자를 사용할 수 있습니다.
+
+//   public: 다른 모듈에서 접근할 수 있다.
+// internal: 같은 모듈에서 접근할 수 있다.
+//  private: 같은 파일에서만 접근이 가능합니다.
+
+internal class User {
     protected var name: String = ""
     internal var age: Int = 0
+}
+
+private var globalVariable = 100
+public fun add(a: Int, b: Int): Int {
+    return a + b
 }
 
 fun main() {
