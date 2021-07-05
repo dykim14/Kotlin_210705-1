@@ -1,6 +1,8 @@
 // 03_클래스문법.kt
 package ex3
 
+import java.util.*
+
 /*
 // User.java
 public class User {
@@ -64,6 +66,7 @@ class User(
     // 차이점
     // @Override -> override
     // Object    -> Any?(Nullable)
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -90,6 +93,29 @@ class User(
         return name == other.name && age == other.age
         // Kotlin - Smart Cast
         // : 컴파일러가 코드를 분석해서, 타입을 자동으로 추론합니다.
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(name, age)
+    }
+    */
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (name != other.name) return false
+        if (age != other.age) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + age
+        return result
     }
 }
 
