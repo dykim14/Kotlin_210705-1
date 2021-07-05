@@ -3,13 +3,15 @@ package javasample.ex3;
 // User.java
 // public class User
 
+import java.util.Objects;
+
 // Object.equals에 대한 재정의를 통해 객체 동등성 판단을 수행할 수 있습니다.
 class User {
     private String name;
     private int age;
 
     public User(String name, int age) {
-        this.name = name;
+        this.name = null;
         this.age = age;
     }
 
@@ -43,7 +45,10 @@ class User {
         User other = (User) obj;
 
         // 5. 동등성 판단을 수행하면 됩니다.
-        return name.equals(other.name) && age == other.age;
+        // return name.equals(other.name) && age == other.age;
+
+        // => equals를 사용하는 객체가 null인지 체크해야 합니다.
+        return Objects.equals(name, other.name) && age == other.age;
     }
 }
 
