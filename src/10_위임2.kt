@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty
 
 // 프로퍼티 위임
 //  : 접근자 메소드에 대한 동작을 다른 객체에게 위임
-
+/*
 class SampleDelegate {
     operator fun getValue(thisRef: User, property: KProperty<*>): String {
         println("getValue")
@@ -36,3 +36,56 @@ fun main() {
 
     user.name = "Bob"
 }
+*/
+
+// 활용
+// : 프로퍼티의 값의 변경될 때 마다 수행되는 로직을 캡슐화하고 싶다.
+interface OnValueChanged {
+    fun onValueChanged(old: String, new: String)
+}
+
+class SampleDelegate(var field: String, private val onValueChanged: OnValueChanged) {
+    operator fun getValue(thisRef: User, property: KProperty<*>): String {
+        return field
+    }
+
+    operator fun setValue(thisRef: User, property: KProperty<*>, value: String) {
+        val old = field
+        field = value
+
+        onValueChanged.onValueChanged(old, field)
+    }
+}
+
+class User {
+    var name: String by SampleDelegate("Tom",
+        onValueChanged = object : OnValueChanged {
+            override fun onValueChanged(old: String, new: String) {
+                println("name: $old -> $new")
+            }
+        }
+    )
+}
+
+fun main() {
+    val user = User()
+    println(user.name)
+    user.name = "Bob"
+    println(user.name)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
