@@ -7,6 +7,12 @@ fun go(speed: Int) {
 }
 
 class Car {
+    companion object {
+        fun go(speed: Int) {
+            println("Car - go")
+        }
+    }
+
     // (Int) -> Unit        - X
     // (Car, Int) -> Unit
     // 메소드의 시그니처는 반드시 객체를 첫번째 인자로 전달받아야 합니다.
@@ -16,13 +22,17 @@ class Car {
 }
 
 fun main() {
+    // Companion object method reference: (Car)::go
+    // method reference: Car::go
+    var fn3 = (Car)::go
+
     var fn: (Int) -> Unit = ::go
     // fn = Car::go
 
     val car = Car()
     val fn2: (Car, Int) -> Unit = Car::go
     fn2(car, 100)
-    
+
     car.go(10)  // Car::go(car, 10)
     // - 메소드의 첫번째 인자로 전달되는 참조를 'this'를 통해 접근합니다.
 }
