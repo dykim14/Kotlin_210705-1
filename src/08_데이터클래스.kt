@@ -50,6 +50,14 @@ fun main() {
 
     // 3. 객체 복제
     //  Java: clone - "clone"은 문제가 있습니다.
+    //  Kotlin: clone X
+    //          finalize X
+    //    finalize: 객체가 GC에 의해 수거되는 시점에 호출되는 메소드
+    //     1. 정확한 호출 시점을 알 수 없다.
+    //     2. 자식 클래스가 재정의하고, 부모의 finalize을 명시적으로 호출하지
+    //        않는다면, 호출되지 않는다.
+    //     3. 호출이 보장되지 않습니다.
+
     val user3 = user1.copy()
     val user4 = user1.copy(name = "Bob")  // "Bob" / 42
     val user5 = user1.copy(age = 100)     // "Tom" / 100
