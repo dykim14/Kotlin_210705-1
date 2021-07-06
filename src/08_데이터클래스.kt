@@ -57,7 +57,6 @@ fun main() {
     //     2. 자식 클래스가 재정의하고, 부모의 finalize을 명시적으로 호출하지
     //        않는다면, 호출되지 않는다.
     //     3. 호출이 보장되지 않습니다.
-
     val user3 = user1.copy()
     val user4 = user1.copy(name = "Bob")  // "Bob" / 42
     val user5 = user1.copy(age = 100)     // "Tom" / 100
@@ -65,4 +64,16 @@ fun main() {
     println(user3)
     println(user4)
     println(user5)
+
+    // 4. 비구조화 선언
+    val list = listOf(user1, user2, user3, user4, user5)
+    // List<User>
+    for (e in list) {
+        println("name=${e.name}, age=${e.age}")
+    }
+
+    for ((name, age) in list) {
+        println("$name / $age")
+    }
+
 }
