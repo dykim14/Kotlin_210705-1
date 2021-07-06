@@ -60,6 +60,8 @@ class Cursor {
 }
 */
 
+import java.time.LocalDate;
+
 // > 코드가 선언적이지 않다.
 //   IODH(Initialization-on-demand holder) idiom
 //   : 자바에서 가장 많이 사용하는 싱글톤
@@ -91,5 +93,6 @@ public class Sample {
 
         System.out.println(c1);
         System.out.println(c2);
+
     }
 }

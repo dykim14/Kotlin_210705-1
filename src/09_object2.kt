@@ -37,16 +37,18 @@ fun main() {
 //         정적 팩토리 메소드를 제공하면 좋습니다.
 //       - 생성자의 한계
 //        : 생성자의 이름은 클래스의 이름으로 고정되어 있습니다.
+//          생성자를 직접 호출해서, 사용할 경우 객체는 무조건 생성이 됩니다.
+//          "정적 팩토리 메소드" - 객체 생성의 정책을 유연하게 변경할 수 있습니다.
 
 /*
 class User {
     val nickname: String
-
     private constructor(nickname: String) {
         this.nickname = nickname
     }
 }
 */
+
 class User private constructor(val nickname: String) {
     companion object {
         fun newSubscribingUser(email: String): User {
