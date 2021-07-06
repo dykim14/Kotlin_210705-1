@@ -40,6 +40,7 @@ fun main() {
 
 // 활용
 // : 프로퍼티의 값의 변경될 때 마다 수행되는 로직을 캡슐화하고 싶다.
+/*
 interface OnValueChanged {
     fun onValueChanged(old: String, new: String)
 }
@@ -70,6 +71,7 @@ class SampleDelegate(
     }
 }
 
+
 class User {
     var name: String by SampleDelegate("Tom",
         onValueChanged = object : OnValueChanged {
@@ -78,6 +80,53 @@ class User {
             }
         },
         predicate = object : Predicate {
+            override fun test(e: String): Boolean {
+                return e.length >= 5
+            }
+        }
+    )
+}
+*/
+
+interface OnValueChanged<T> {
+    fun onValueChanged(old: T, new: T)
+}
+
+// : 값이 조건을 만족해야만 변경되도록 하고 싶다.
+interface Predicate<T> {
+    fun test(e: T): Boolean
+}
+
+class SampleDelegate<T>(
+    var field: T,
+    private val onValueChanged: OnValueChanged<T>,
+    private val predicate: Predicate<T>
+) {
+    operator fun getValue(thisRef: User, property: KProperty<*>): T {
+        return field
+    }
+
+    operator fun setValue(thisRef: User, property: KProperty<*>, value: T) {
+        if (predicate.test(value).not()) {
+            return
+        }
+
+        val old = field
+        field = value
+
+        onValueChanged.onValueChanged(old, field)
+    }
+}
+
+
+class User {
+    var name: String by SampleDelegate("Tom",
+        onValueChanged = object : OnValueChanged<String> {
+            override fun onValueChanged(old: String, new: String) {
+                println("name: $old -> $new")
+            }
+        },
+        predicate = object : Predicate<String> {
             override fun test(e: String): Boolean {
                 return e.length >= 5
             }
