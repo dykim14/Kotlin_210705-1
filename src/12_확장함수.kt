@@ -18,24 +18,77 @@
 
 package ex12
 
+import java.lang.StringBuilder
+
 /*
 fun lastChar(text: String): Char {
     return text[text.length - 1]
 }
 */
 
+// String: 수신 객체 타입
+//   this: 수신 객체 참조
+
+
+//  (String) -> Char
 fun String.lastChar(): Char {
     return this[this.length - 1]
 }
 
+/*
+fun <E> xjoinToString(
+    collection: Collection<E>,
+    separator: String,
+    prefix: String,
+    postfix: String
+): String {
+    val result = StringBuilder(prefix)
+
+    for ((index, element) in collection.withIndex()) {
+        if (index > 0)
+            result.append(separator)
+        result.append(element)
+    }
+    result.append(postfix)
+    return result.toString()
+}
+*/
+fun <E> Collection<E>.xjoinToString(
+    separator: String,
+    prefix: String,
+    postfix: String
+): String {
+    val result = StringBuilder(prefix)
+
+    for ((index, element) in withIndex()) {
+        if (index > 0)
+            result.append(separator)
+        result.append(element)
+    }
+    result.append(postfix)
+    return result.toString()
+}
+
+// - 코틀린의 표준 라이브러리의 많은 기능이
+//   확장 함수를 통해 제공되고 있습니다.
+// - 안드로이드의 많은 기능이 코틀린의 확장 함수를 통해 제공되고 있습니다.
+//   KTX(Kotlin Extensions)
 
 fun main() {
-    // val result = lastChar("hello")
+    // List<String> - Collection<String>
+    val list = listOf("Alice", "Bob", "Tom")
+    // val result2 = joinToString(list, ", ", "[", "]")
+    val result2 = list.xjoinToString(", ", "[", "]")
+    println(result2)
 
+    // val result = lastChar("hello")
     val result = "hello".lastChar()
     println(result)
 }
 
+// 확장 함수를 함부로 사용하면 안됩니다.
+//  => 공용 라이브러리같은 개념으로 접근해야 합니다.
+//    => fun Activity.foo() {}
 
 
 
