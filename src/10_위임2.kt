@@ -11,6 +11,10 @@ class SampleDelegate {
         println("getValue")
         return "Tom"
     }
+
+    operator fun setValue(thisRef: User, property: KProperty<*>, value: String) {
+        println("setValue - $value")
+    }
 }
 
 // 동작 방식
@@ -19,12 +23,16 @@ class SampleDelegate {
 //     약속된 메소드(연산자 오버로딩)를 통해 수행됩니다.
 //  - Type 'SampleDelegate' has no method 'getValue(User, KProperty<*>)'
 //    and thus it cannot serve as a delegate
+//  - Type 'SampleDelegate' has no method 'setValue(User, KProperty<*>, String)'
+//    and thus it cannot serve as a delegate for var (read-write property)
 
 class User {
-    val name: String by SampleDelegate()
+    var name: String by SampleDelegate()
 }
 
 fun main() {
     val user = User()
     println(user.name)
+
+    user.name = "Bob"
 }
