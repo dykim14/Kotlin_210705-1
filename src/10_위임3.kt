@@ -2,6 +2,8 @@
 package ex10_3
 
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 // 코틀린이 이미 제공하는 프로퍼티 위임 객체가 있습니다.
 
@@ -43,7 +45,39 @@ class User {
     }
 }
 
+
+// 2. 프로퍼티 변경을 관찰하는 객체
+//     Delegates.observable
+class TextView {
+    // text가 변경되면, UI에 대한 업데이트를 수행하고자 합니다.
+    var text: String by Delegates.observable("") { _: KProperty<*>, old: String, new: String ->
+        // text의 프로퍼티가 변경되었을 때 수행하는 작업 블록
+        println("$text UI 업데이트: $old -> $new")
+    }
+}
+
+// 3. 조건에 부합되지 않는다면, 값이 변경되지 않도록 하고 싶다.
+//    Delegate.vetoable
+class Person {
+    var age: Int by Delegates.vetoable(0) { _: KProperty<*>, _: Int, new: Int ->
+        new in 1..100
+    }
+}
+
+
 fun main() {
+    val person = Person()
+    person.age = 50
+    println(person.age)
+
+    person.age = -1
+    println(person.age)
+
+
+    val textView = TextView()
+    textView.text = "Hello"
+    textView.text = "Hi"
+
     val user = User()
     println("User 객체 생성 완료")
 
