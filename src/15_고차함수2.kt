@@ -1,12 +1,14 @@
 // 15_고차함수2.kt
 package ex15_2
 
+import java.util.function.Predicate
+
 // 인터페이스 기반 정책으로 분리합니다.
 // => 동작 파라미터화 설계
 
-interface Predicate<E> {
-    fun test(e: E): Boolean
-}
+//interface Predicate<E> {
+//    fun test(e: E): Boolean
+//}
 
 fun filter(data: List<Int>, predicate: Predicate<Int>): List<Int> {
     val result = mutableListOf<Int>()
@@ -21,11 +23,11 @@ fun filter(data: List<Int>, predicate: Predicate<Int>): List<Int> {
 }
 
 // Predicate 인터페이스를 기반으로 정책 클래스를 만듭니다.
-class EvenPredicate : Predicate<Int> {
+object EvenPredicate : Predicate<Int> {
     override fun test(e: Int): Boolean = e % 2 == 0
 }
 
-class OddPredicate : Predicate<Int> {
+object OddPredicate : Predicate<Int> {
     override fun test(e: Int): Boolean = e % 2 == 1
 }
 
@@ -33,8 +35,8 @@ class OddPredicate : Predicate<Int> {
 fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-    val result1 = filter(list, EvenPredicate())
-    val result2 = filter(list, OddPredicate())
+    val result1 = filter(list, EvenPredicate)
+    val result2 = filter(list, OddPredicate)
 
     println(result1)
     println(result2)
