@@ -56,16 +56,24 @@ class Window {
 
 fun main() {
     val window = Window()
-//    window.adapter = object : MouseAdapter {
-//        override fun mouseClicked() {
-//            println("mouseClicked")
-//        }
-//
-//        override fun mouseEntered() {
-//            println("mouseEntered")
-//        }
-//    }
 
+    var n = 0
+
+    // 익명 객체는 외부 컨텍스트의 변수를 암묵적으로 참조 가능합니다.
+    //  : 클로저(Closure)
+    window.adapter = object : MouseAdapter {
+        override fun mouseClicked() {
+            println("mouseClicked - ${++n}")
+        }
+
+        override fun mouseEntered() {
+            println("mouseEntered")
+        }
+    }
+
+    window.click()
+    window.click()
+    window.click()
     window.click()
     window.enter()
 }
