@@ -37,14 +37,37 @@ fun add2(a: Int, b: Int) = a + b
 
 fun foo(a: Int, b: Char, c: String): Double = 3.14
 
+// 5. 지역 함수
+//  : 전역 공간의 이름 충돌을 신경쓰지 않아도 됩니다.
+//    클로저(Closure)를 사용할 수 있습니다.
+//     : 외부 컨텍스트(함수)의 변수를 암묵적으로 참조(캡쳐)할 수 있습니다.
+fun printArea(width: Int, height: Int) {
+
+    // 함수 내부에서만 사용되는 함수를 정의할 수 있습니다.
+    fun calcArea(width: Int, height: Int) = width * height
+    fun calcArea2() = width * height
+
+    // val area1 = width * height
+    // val area2 = width * height
+    // val area1 = calcArea(width, height)
+    // val area2 = calcArea(width, height)
+
+    val area1 = calcArea2()
+    val area2 = calcArea2()
+
+    println(area1)
+    println(area2)
+}
+
 fun main() {
+    printArea(100, 30)
+
     var fn1: (Int, Int) -> Int = ::add1
     fn1 = ::add2
     fn1(10, 20)
-    
+
     val fn2: (Int, Char, String) -> Double = ::foo
     foo(42, 'a', "Hello")
-
 
     val result1 = add1(10, 20)
     val result2 = add2(10, 20)
