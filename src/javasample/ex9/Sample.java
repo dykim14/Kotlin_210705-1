@@ -80,6 +80,9 @@ class Cursor {
     }
 }
 
+// 싱글톤은 유용하지만, 모듈화에 악영향을 미칩니다.
+// 모듈이 싱글톤에 의존한다면, 재사용이 어렵습니다.
+//  => 주의해서 사용해야 합니다.
 
 public class Sample {
     public static void main(String[] args) {
