@@ -21,8 +21,8 @@ fun main() {
     // val pair1 = pa("name", "Tom")
     // val pair2 = pa("age", 42)
 
-    // val pair1 = "name".pa("Tom")
-    // val pair2 = "age".pa(42)
+    val pair3 = "name".pa("Tom")
+    val pair4 = "age".pa(42)
 
     val pair1 = "name" to "Tom"
     val pair2 = "age" pa 42
