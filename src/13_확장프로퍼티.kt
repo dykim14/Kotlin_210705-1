@@ -1,6 +1,8 @@
 // 13_확장프로퍼티.kt
 package ex13
 
+import java.lang.StringBuilder
+
 // 프로퍼티
 // 1. Backing field 있는 프로퍼티 - 확장 프로퍼티를 만들 수 없습니다.
 // 2. Backing field 없는 프로퍼티
@@ -15,9 +17,17 @@ val String.lastChar: Char
     get() = this[length - 1]
 
 // var: getter + setter
-
+var StringBuilder.lastChar: Char
+    get() = this[length - 1]
+    set(value) = setCharAt(length - 1, value)
 
 fun main() {
+    val sb = StringBuilder("Hello")
+    println(sb.lastChar) // getter
+    sb.lastChar = 'x'
+    println(sb)
+
+
     // val result = "hello".lastChar()
 
     val result = "hello".lastChar
