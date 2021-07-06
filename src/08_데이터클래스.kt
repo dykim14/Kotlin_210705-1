@@ -3,6 +3,7 @@ package ex8
 
 // VO(Value Object)
 // DTO(Data Transfer Object)
+/*
 class User(val name: String, val age: Int) {
     override fun toString(): String {
         return "User{name=$name, age=$age}"
@@ -24,10 +25,16 @@ class User(val name: String, val age: Int) {
         result = 31 * result + age
         return result
     }
+
+    // 코틀린에서 객체를 복사할 때 사용하는 방법.
+    fun copy(name: String = this.name, age: Int = this.age): User {
+        return User(name, age)
+    }
 }
+*/
 
 
-// data class User(val name: String, val age: Int)
+data class User(val name: String, val age: Int)
 
 fun main() {
     val user1 = User("Tom", 42)
@@ -43,4 +50,11 @@ fun main() {
 
     // 3. 객체 복제
     //  Java: clone - "clone"은 문제가 있습니다.
+    val user3 = user1.copy()
+    val user4 = user1.copy(name = "Bob")  // "Bob" / 42
+    val user5 = user1.copy(age = 100)     // "Tom" / 100
+
+    println(user3)
+    println(user4)
+    println(user5)
 }
