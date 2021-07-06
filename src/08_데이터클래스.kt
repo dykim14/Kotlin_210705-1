@@ -3,7 +3,7 @@ package ex8
 
 // VO(Value Object)
 // DTO(Data Transfer Object)
-/*
+
 class User(val name: String, val age: Int) {
     override fun toString(): String {
         return "User{name=$name, age=$age}"
@@ -30,11 +30,21 @@ class User(val name: String, val age: Int) {
     fun copy(name: String = this.name, age: Int = this.age): User {
         return User(name, age)
     }
+
+    // 비구조화 선언 - 연산자 오버로딩
+    //  : 특정한 연산자를 사용했을 경우, 약속된 메소드를 통해 해당 기능이 제공됩니다.
+    //  val (name, age) = user;
+    operator fun component1(): String {
+        return name
+    }
+
+    operator fun component2(): Int {
+        return age
+    }
 }
-*/
 
 
-data class User(val name: String, val age: Int)
+// data class User(val name: String, val age: Int)
 
 fun main() {
     val user1 = User("Tom", 42)
