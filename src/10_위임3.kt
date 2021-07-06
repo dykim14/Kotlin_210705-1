@@ -32,7 +32,7 @@ class User {
     }
 
     fun go() {
-        println("User go")
+        println("User go - $data")
     }
 }
 
