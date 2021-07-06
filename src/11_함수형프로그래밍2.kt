@@ -23,17 +23,21 @@ class Car {
 }
 
 fun main() {
+    // 일반 함수 - ::go
+    var fn: (Int) -> Unit = ::go
+
     // Companion object method reference: (Car)::go
-    // method reference: Car::go
+    //                  method reference: Car::go
     val fn3: (Int) -> Unit = (Car)::go
     fn3(100)
-
-    var fn: (Int) -> Unit = ::go
-    // fn = Car::go
 
     val car = Car()
     val fn2: (Car, Int) -> Unit = Car::go
     fn2(car, 100)
+
+    // 메소드 참조에서 이미 this가 결정된 경우의 메소드 참조
+    // => Bound Reference(바운드 참조)
+    val fn4: (Int) -> Unit = car::go
 
     car.go(10)  // Car::go(car, 10)
     // - 메소드의 첫번째 인자로 전달되는 참조를 'this'를 통해 접근합니다.
