@@ -27,13 +27,37 @@ class Cursor {
     private Cursor() {
     }
 
+    // > 여러 개의 스레드에서 동시에 getInstance가 수행될 경우,
+    //   문제가 발생할 수 있습니다.
+    //   => 지연 초기화 방식은 스레드 안전성을 고려해야 합니다.
+    /*
+    public static Cursor getInstance() {
+        synchronized (Cursor.class) {
+            if (sInstance == null) {
+                sInstance = new Cursor();
+            }
+        }
+        return sInstance;
+    }
+    */
+
+    // > 동기화 블록은 첫 생성 시점에 대해서만 필요합니다.
+    //   이후에 참조에 대해서 매번 동기화가 수행되므로, 전체적인 프로그램의
+    //   성능에 악영향을 미칠 수 있습니다.
+    //   => DCLP(Double Checked Locking Pattern)
+    //    : 처음 생성 시점에 대해서만 동기화 블록을 수행한다.
     public static Cursor getInstance() {
         if (sInstance == null) {
-            sInstance = new Cursor();
+            synchronized (Cursor.class) {
+                if (sInstance == null) {
+                    sInstance = new Cursor();
+                }
+            }
         }
         return sInstance;
     }
 }
+
 
 public class Sample {
     public static void main(String[] args) {
