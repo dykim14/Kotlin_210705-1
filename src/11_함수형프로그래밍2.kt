@@ -9,7 +9,7 @@ fun go(speed: Int) {
 class Car {
     companion object {
         fun go(speed: Int) {
-            println("Car - go")
+            println("Companion Car go")
         }
     }
 
@@ -24,7 +24,8 @@ class Car {
 fun main() {
     // Companion object method reference: (Car)::go
     // method reference: Car::go
-    var fn3 = (Car)::go
+    var fn3: (Int) -> Unit = (Car)::go
+    fn3(100)
 
     var fn: (Int) -> Unit = ::go
     // fn = Car::go
