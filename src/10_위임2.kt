@@ -44,12 +44,25 @@ interface OnValueChanged {
     fun onValueChanged(old: String, new: String)
 }
 
-class SampleDelegate(var field: String, private val onValueChanged: OnValueChanged) {
+// : 값이 조건을 만족해야만 변경되도록 하고 싶다.
+interface Predicate {
+    fun test(e: String): Boolean
+}
+
+class SampleDelegate(
+    var field: String,
+    private val onValueChanged: OnValueChanged,
+    private val predicate: Predicate
+) {
     operator fun getValue(thisRef: User, property: KProperty<*>): String {
         return field
     }
 
     operator fun setValue(thisRef: User, property: KProperty<*>, value: String) {
+        if (predicate.test(value).not()) {
+            return
+        }
+
         val old = field
         field = value
 
@@ -63,6 +76,11 @@ class User {
             override fun onValueChanged(old: String, new: String) {
                 println("name: $old -> $new")
             }
+        },
+        predicate = object : Predicate {
+            override fun test(e: String): Boolean {
+                return e.length >= 5
+            }
         }
     )
 }
@@ -70,7 +88,11 @@ class User {
 fun main() {
     val user = User()
     println(user.name)
+
     user.name = "Bob"
+    println(user.name)
+
+    user.name = "Alice"
     println(user.name)
 }
 
