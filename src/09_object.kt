@@ -44,7 +44,6 @@ object PersonComparator : Comparator<Person> {
     }
 }
 
-
 data class Person(val name: String) {
     // 중첩 클래스로 object 선언을 이용할 수 있습니다.
     object NameComparator : Comparator<Person> {
