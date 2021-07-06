@@ -3,6 +3,8 @@ package ex8
 
 // VO(Value Object)
 // DTO(Data Transfer Object)
+// JSON Model
+// => data class
 
 class User(val name: String, val age: Int) {
     override fun toString(): String {
