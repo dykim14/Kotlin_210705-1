@@ -41,4 +41,6 @@ fun main() {
 
     // 2. 동등성 판단 - equals / hashCode
     println(user1 == user2)
+
+    // 3. 객체 복제
 }
