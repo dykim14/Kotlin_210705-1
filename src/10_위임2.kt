@@ -133,7 +133,7 @@ class User {
                 return age in 1..100
             }
         })
-    
+
     var name: String by SampleDelegate("Tom",
         onValueChanged = object : OnValueChanged<String> {
             override fun onValueChanged(old: String, new: String) {
