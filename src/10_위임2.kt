@@ -120,6 +120,20 @@ class SampleDelegate<T>(
 
 
 class User {
+    val age: Int by SampleDelegate(0,
+        onValueChanged = object : OnValueChanged<Int> {
+            override fun onValueChanged(old: Int, new: Int) {
+                println("age: $new -> $old")
+            }
+        },
+        predicate = object : Predicate<Int> {
+            override fun test(e: Int): Boolean {
+                // 1 ~ 100
+                // age > 0 && age <= 100
+                return age in 1..100
+            }
+        })
+    
     var name: String by SampleDelegate("Tom",
         onValueChanged = object : OnValueChanged<String> {
             override fun onValueChanged(old: String, new: String) {
