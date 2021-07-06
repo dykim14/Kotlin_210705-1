@@ -47,10 +47,70 @@ class Point implements Cloneable {
     }
 }
 
+// 라이브러리가 제공하는 클래스입니다.
+class Car {
+    private String name;
+
+    public Car(String name) {
+        this.name = name;
+    }
+}
+
+// 사용자가 만든 클래스 입니다.
+//  : clone을 구현하더라도, 제대로 복사가 수행되지 않습니다.
+//  => 상속 계층에 있는 모든 클래스가 clone을 만족해야 복사가 제대로 수행될 수 있습니다.
+class Truck extends Car implements Cloneable {
+    private int color;
+
+    public Truck(String name, int color) {
+        super(name);
+        this.color = color;
+    }
+
+    @Override
+    public Truck clone() {
+        try {
+            return (Truck) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+
+// 자바에서도 clone을 통해 복제를 수행하는 것아니라,
+// "복사 생성자"를 이용하는 것이 좋습니다.
+// => 자신과 동일한 타입의 인자를 받는 생성자
+class Point2 {
+    private int x;
+    private int y;
+
+    public Point2(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Point2(Point2 rhs) {
+        this.x = rhs.x;
+        this.y = rhs.y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point2{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+}
+
+
 public class Sample {
     public static void main(String[] args) {
-        Point p1 = new Point(10, 20);
-        Point p2 = p1.clone();
+        // Point p1 = new Point(10, 20);
+        // Point p2 = p1.clone();
+        Point2 p1 = new Point2(10, 20);
+        Point2 p2 = new Point2(p1);
 
         System.out.println(p1);
         System.out.println(p2);

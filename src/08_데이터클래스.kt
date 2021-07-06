@@ -3,7 +3,6 @@ package ex8
 
 // VO(Value Object)
 // DTO(Data Transfer Object)
-/*
 class User(val name: String, val age: Int) {
     override fun toString(): String {
         return "User{name=$name, age=$age}"
@@ -26,9 +25,9 @@ class User(val name: String, val age: Int) {
         return result
     }
 }
-*/
 
-data class User(val name: String, val age: Int)
+
+// data class User(val name: String, val age: Int)
 
 fun main() {
     val user1 = User("Tom", 42)
