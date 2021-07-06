@@ -64,7 +64,6 @@ class Person {
     }
 }
 
-
 fun main() {
     val person = Person()
     person.age = 50
@@ -72,8 +71,7 @@ fun main() {
 
     person.age = -1
     println(person.age)
-
-
+    
     val textView = TextView()
     textView.text = "Hello"
     textView.text = "Hi"
