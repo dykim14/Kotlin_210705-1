@@ -39,8 +39,9 @@ fun main() {
     println(user1)
     println(user2)
 
-    // 2. 동등성 판단 - equals / hashCode
+    // 2. 동등성 판단 : equals / hashCode
     println(user1 == user2)
 
     // 3. 객체 복제
+    //  Java: clone - "clone"은 문제가 있습니다.
 }
