@@ -2,6 +2,7 @@
 package ex21
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 class User(
     val name: String,
@@ -17,7 +18,9 @@ class Car(
 )
 
 fun <T> T.toJSON(): String {
-    val gson = Gson()
+    val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .create()
     return gson.toJson(this)
 }
 
