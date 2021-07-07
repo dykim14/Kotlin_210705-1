@@ -107,6 +107,10 @@ enum class Level {
     INFO, WARN
 }
 
+// 함수를 설계할 때, 인자의 순서는 변동성이 낮은 순서로 지정해야 합니다.
+// => 커링 고려
+// => 인자를 고정하는 기술
+// => 기존 함수를 재사용하기 위한 기술
 fun log(level: Level, appendable: Appendable, message: String) {
     appendable.appendLine(
         "[${level.name}][${LocalDateTime.now()}]: $message"
