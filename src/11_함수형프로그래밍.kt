@@ -67,7 +67,7 @@ fun main() {
     fn1(10, 20)
 
     val fn2: (Int, Char, String) -> Double = ::foo
-    foo(42, 'a', "Hello")
+    fn2(42, 'a', "Hello")
 
     val result1 = add1(10, 20)
     val result2 = add2(10, 20)
