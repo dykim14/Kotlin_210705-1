@@ -44,23 +44,20 @@ fun lookForAlice4(people: List<Person>) {
 }
 
 
-// 2. forEach
-// 1.
-//    Found!
 
-// 2.
-//    Found!
-//    "Failed to find Alice"
+
 
 // * 람다 표현식은 함수가 아닙니다.
 //   람다 표현식은 비지역 반환을 수행합니다.
 
 // * 지역 반환
 
+
 inline fun <T> Iterable<T>.forEach2(action: (T) -> Unit) {
     for (element in this) action(element)
 }
 
+// 2. forEach - lambda expression
 fun lookForAlice2(people: List<Person>) {
 
     people.forEach2 { person ->
@@ -74,6 +71,24 @@ fun lookForAlice2(people: List<Person>) {
     println("Failed to find Alice")
 }
 
+// 3. forEach - anonymous function
+fun lookForAlice5(people: List<Person>) {
+    people.forEach(fun(person) {
+        if (person.name == "Alice") {
+            println("Found!")
+            return
+        }
+    })
+    println("Failed to find Alice")
+}
+
+// 1.
+//    Found!
+
+// 2.
+//    Found!
+//    "Failed to find Alice"
+
 
 fun main() {
     val list = listOf(
@@ -82,5 +97,5 @@ fun main() {
         Person("Alice"),
     )
 
-    lookForAlice4(list)
+    lookForAlice5(list)
 }
