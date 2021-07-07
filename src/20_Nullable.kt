@@ -60,7 +60,16 @@ class User {
     }
 
     fun sendMail(email: String?, subject: String?) {
+        // 3) Elvis operator - ?:
+        //  : null 일 때 실행한 표현식을 정의합니다.
 
+        val email = email ?: return
+        val subject = subject ?: return
+
+        println("send mail - $email, $subject")
+
+
+        /*
         // let은 중첩될 경우, 코드의 가독성이 떨어집니다.
         email?.let { email ->
             subject?.let { subject ->
@@ -71,6 +80,7 @@ class User {
         if (email != null && subject != null) {
             println("send mail - $email, $subject")
         }
+        */
 
 
     }
