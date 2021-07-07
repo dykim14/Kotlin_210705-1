@@ -35,6 +35,10 @@ fun <T> T.toJSON(): String {
 //   => 새로운 기능이 추가되어도 기존 코드는 수정되면 안된다.
 
 // 기존 함수에 메모이제이션의 기능을 추가한 함수를 만드는 함수
+//   클로저: 람다 표현식에서 클로저를 통해 접근하는 변수는 람다 표현식이 유효할 때까지
+//          수명이 연장됩니다.
+//   => 함수가 상태를 가질 수 있습니다.
+
 fun <A, B> ((A) -> B).memoized(): (A) -> B {
     val cache = mutableMapOf<A, B>()
     return { k ->
@@ -54,6 +58,8 @@ fun main() {
     val userToJSON = User::toJSON.memoized()
     println(userToJSON(user1))
     println(userToJSON(user2))
+
+    val carToJSON = Car::toJSON.memoized()
 
     // Gson
     // val gson = Gson()
