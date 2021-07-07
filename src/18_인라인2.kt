@@ -18,6 +18,13 @@ open class Activity {
     }
 }
 
+fun main() {
+    // Activity Manager
+    val activity = MainActivity()
+    activity.onCreate()
+}
+//------------------------------------
+
 class SecondActivity : Activity() {
     override fun onCreate() {
         super.onCreate()
@@ -26,20 +33,61 @@ class SecondActivity : Activity() {
     }
 }
 
+fun <T> add(a: T, b: T) {
+}
+// * 타입 소거 방식
+// fun add(a: Any, b: Any) => 모든 호출이 동일한 함수를 이용합니다.
+//  : 컴파일러가 컴파일 타임에 타입을 체크하는 목적으로만 사용합니다.
+//    바이트 코드에는 어떤 타입 정보도 존재하지 않습니다.
+
+// * 코드 생성 방식
+// add(10, 20)     => fun add(a: Int, b: Int)
+// add(1.0, 3.14)  => fun add(a: Double, b: Double)
+
+
+// 자바에서는 아래와 같은 함수를 절대 제공할 수 없습니다.
+//  : Generic(제네릭)
+//  - 타입에 일반적인 알고리즘을 가지는 함수와 클래스를 만들 수 있습니다.
+
+//  언어가 구현하는 방식
+//   1) 코드 생성 방식
+//     : C++ Template / C# Generic / Swift Generic
+//      단점: 코드 메모리 사용량이 증가된다.
+//      장점: 코드를 생성하는 기술을 이용해서 다양한 설계적인 활용이 가능합니다.
+//        Meta Programming / Policy Based Design
+
+//   2) 타입 소거 방식
+//     장점: 코드 메모리 사용량이 증가되지 않는다.
+//     단점: 활용이 제한적입니다.
+
+
+// 코틀린은 함수를 호출하지 않고, 치환할 수 있습니다.
+// : 함수의 호출이 아니라 인라인 치환을 하면, 타입 정보를 결정한 형태로 바이트 코드를 생성할 수 있습니다.
+inline fun <reified T : Activity> Activity.startActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
 
 class MainActivity : Activity() {
     override fun onCreate() {
         super.onCreate()
 
         // MainActivity에서 SecondActivity로 액티비티 전환
-        val intent = Intent(this, SecondActivity::class.java)
-        startActivity(intent)
+        // val intent = Intent(this, SecondActivity::class.java)
+        // startActivity(intent)
+
+        startActivity<SecondActivity>()
     }
 }
 
-fun main() {
-    // Activity Manager
-    val activity = MainActivity()
-    activity.onCreate()
-}
+
+
+
+
+
+
+
+
+
+
 
