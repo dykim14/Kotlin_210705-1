@@ -12,25 +12,36 @@ package ex17
 // fun sum(a: Int)(b: Int)(c: Int) = a + b + c
 // => 코틀린은 커링 버전을 자동으로 생성하는 기능을 제공하지 않습니다.
 
+// 용도
+// - 인자를 고정합니다.
 
-fun sum2(a: Int, b: Int): Int = a + b
+// fun sum2(a: Int, b: Int): Int = a + b
 
-fun sum2(a: Int): (b: Int) -> Int = { b ->
-    a + b
-}
+//fun sum2(a: Int): (b: Int) -> Int = { b ->
+//    a + b
+//}
 
-fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
+// fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
 
-fun sum3(a: Int): (b: Int) -> (c: Int) -> Int = { b ->
-    { c ->
-        a + b + c
-    }
-}
+//fun sum3(a: Int): (b: Int) -> (c: Int) -> Int = { b ->
+//    { c ->
+//        a + b + c
+//    }
+//}
 
 // (b: Int) -> (c: Int) -> Int
 //  => -> 연산자는 오른쪽에서 왼쪽으로 결합을 합니다.
-
+/*
 fun main() {
+    val plus10 = sum2(10)
+
+    println(plus10(20))
+    println(plus10(40))
+
+    val plus_10_20 = sum3(10)(20)
+    println(plus_10_20(30))
+    println(plus_10_20(50))
+
     val result3 = sum3(10, 20, 30)
     val result4 = sum3(10)(20)(30)
 
@@ -43,5 +54,36 @@ fun main() {
     val result2 = sum2(10, 20)
     println(result2)
 }
+*/
+fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
+// 기존 함수에 대해서 커링된 버전을 자동으로 생성하는 함수
+
+fun sum2(a: Int, b: Int): Int = a + b
+/*
+fun sum2(a: Int): (b: Int) -> Int = { b ->
+    a + b
+}
+// (Int) -> (Int) -> Int
+*/
+
+fun <P1, P2, R> ((P1, P2) -> R).curried(): (P1) -> (P2) -> R = { p1 ->
+    { p2 ->
+        this(p1, p2)
+    }
+}
+
+
+fun main() {
+    val csum2 = ::sum2.curried()
+    val result = csum2(10)(20)
+
+    println(result)
+}
+
+
+
+
+
+
 
 
