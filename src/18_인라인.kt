@@ -66,7 +66,11 @@ class IncThread(private val lock: Lock) : Thread() {
 }
 
 // 코틀린은 Extension Function 을 통해 기능을 제공하고 있습니다.
-fun <T> Lock.withLock(action: () -> T): T {
+// => 함수를 인자로 받는 함수에 대해서, 함수 호출의 오버헤드를 없앨 수 있습니다.
+//    inline: 함수를 호출하는 것이 아니라 바이트 코드로 치환합니다.
+//      1) 함수를 인자로 받는 고차 함수에서 오버헤드를 없애기 위해 사용할 수 있습니다.
+
+inline fun <T> Lock.withLock(action: () -> T): T {
     lock()
     try {
         return action()
