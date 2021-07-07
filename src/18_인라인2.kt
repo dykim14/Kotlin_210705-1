@@ -1,6 +1,9 @@
 // 18_인라인2.kt
 package ex18_2
 
+import ex22.Button
+import ex22.OnClickListener
+
 class Intent(val context: Activity, val clazz: Class<out Activity>)
 
 open class Activity {
@@ -78,7 +81,30 @@ class MainActivity : Activity() {
         // val intent = Intent(this, SecondActivity::class.java)
         // startActivity(intent)
 
-        startActivity<SecondActivity>()
+
+        // startActivity<SecondActivity>()
+
+        val button = Button()
+
+        // Anonymous Object
+        button.onClickListener = object : OnClickListener {
+            override fun onClick() {
+                // this: 익명 객체의 this 입니다.
+                //   Java: MainActivity.this
+                // Kotlin: this@MainActivity
+                val intent = Intent(this@MainActivity, SecondActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        // SAM - Lambda Expression
+        button.onClickListener = OnClickListener {
+            // this: 외부 MainActivity의 this를 의미합니다.
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
 

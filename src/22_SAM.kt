@@ -35,7 +35,6 @@ fun main() {
         }
     }
 
-
     button.onClickListener = OnClickListener {
         println("Button click")
     }
