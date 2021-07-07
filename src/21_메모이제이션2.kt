@@ -44,24 +44,25 @@ fun <A, B> ((A) -> B).memoized(): (A) -> B {
 
 
 fun main() {
-    val user = User("Tom", 42, "Suwon", 1)
+    val user1 = User("Tom", 42, "Suwon", 1)
+    val user2 = User("Tom", 42, "Suwon", 1)
+
     val car = Car("BMW", "Sedan", 100)
 
     val userToJSON = User::toJSON.memoized()
-    println(userToJSON(user))
-    println(userToJSON(user))
-    println(userToJSON(user))
+    println(userToJSON(user1))
+    println(userToJSON(user2))
 
     // Gson
     // val gson = Gson()
     // val json1 = gson.toJson(user)
     // val json2 = gson.toJson(car)
 
-    val json1 = user.toJSON()
-    val json2 = car.toJSON()
+    // val json1 = user.toJSON()
+    // val json2 = car.toJSON()
 
-    println(json1)
-    println(json2)
+    // println(json1)
+    // println(json2)
 }
 
 
