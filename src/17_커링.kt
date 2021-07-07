@@ -1,0 +1,47 @@
+package ex17
+
+// 커링(Currying)
+// : 다중 인수를 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 작업
+
+// sum(10, 20, 30) => 커링 => sum(10)(20)(30)
+
+// 일반 버전
+// fun sum(a: Int, b: Int, c: Int): Int = a + b + c
+
+// Scala - 커링
+// fun sum(a: Int)(b: Int)(c: Int) = a + b + c
+// => 코틀린은 커링 버전을 자동으로 생성하는 기능을 제공하지 않습니다.
+
+
+fun sum2(a: Int, b: Int): Int = a + b
+
+fun sum2(a: Int): (b: Int) -> Int = { b ->
+    a + b
+}
+
+fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
+
+fun sum3(a: Int): (b: Int) -> (c: Int) -> Int = { b ->
+    { c ->
+        a + b + c
+    }
+}
+
+// (b: Int) -> (c: Int) -> Int
+//  => -> 연산자는 오른쪽에서 왼쪽으로 결합을 합니다.
+
+fun main() {
+    val result3 = sum3(10, 20, 30)
+    val result4 = sum3(10)(20)(30)
+
+    println(result3)
+    println(result4)
+
+    val result1 = sum2(10)(20)
+    println(result1)
+
+    val result2 = sum2(10, 20)
+    println(result2)
+}
+
+
