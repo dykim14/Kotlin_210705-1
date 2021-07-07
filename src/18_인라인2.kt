@@ -63,6 +63,8 @@ fun <T> add(a: T, b: T) {
 
 // 코틀린은 함수를 호출하지 않고, 치환할 수 있습니다.
 // : 함수의 호출이 아니라 인라인 치환을 하면, 타입 정보를 결정한 형태로 바이트 코드를 생성할 수 있습니다.
+//  => Jetbrains Anko(Android Kotlin library)
+
 inline fun <reified T : Activity> Activity.startActivity() {
     val intent = Intent(this, T::class.java)
     startActivity(intent)
