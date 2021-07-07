@@ -81,10 +81,15 @@ fun <P1, P2, P3, R> ((P1, P2, P3) -> R).curried(): (P1) -> (P2) -> (P3) -> R = {
 }
 
 fun main() {
+    val sum = { a: Int, b: Int ->
+        a + b
+    }.curried()
+    println(sum(10)(20))
+
     val csum3 = ::sum3.curried()
     val result2 = csum3(10)(20)(30)
     println(result2)
-    
+
     val csum2 = ::sum2.curried()
     val result = csum2(10)(20)
 
