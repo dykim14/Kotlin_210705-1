@@ -8,13 +8,41 @@ fun lookForAlice1(people: List<Person>) {
     for (person in people) {
         if (person.name == "Alice") {
             println("Found!")
-            return
+            // return
             // break
         }
     }
 
     println("Failed to find Alice")
 }
+
+fun lookForAlice3(people: List<Person>) {
+    for (person in people) {
+        if (person.name != "Alice") {
+            continue
+        }
+
+        println("Found!")
+    }
+
+    println("Failed to find Alice")
+}
+
+fun lookForAlice4(people: List<Person>) {
+    people.forEach { person ->
+
+        run {
+            if (person.name != "Alice") {
+                return@run    // continue
+            }
+
+            println("Found!")
+        }
+    }
+
+    println("Failed to find Alice")
+}
+
 
 // 2. forEach
 // 1.
@@ -33,14 +61,13 @@ inline fun <T> Iterable<T>.forEach2(action: (T) -> Unit) {
     for (element in this) action(element)
 }
 
-
 fun lookForAlice2(people: List<Person>) {
 
     people.forEach2 { person ->
         if (person.name == "Alice") {
-            println("Found!")
-            return                     // 비지역 반환 - inline
-            // return@forEach2         // 지역 반환
+            println("Found!")          //                      for-loop
+            return                     // 비지역 반환 - inline  :   return
+            // return@forEach2         // 지역 반환                break
         }
     }
 
@@ -55,5 +82,5 @@ fun main() {
         Person("Alice"),
     )
 
-    lookForAlice2(list)
+    lookForAlice4(list)
 }
