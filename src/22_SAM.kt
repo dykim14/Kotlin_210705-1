@@ -1,11 +1,16 @@
 // 22_SAM.kt
 package ex22
 
-import javasample.ex22.OnClickListener
+// import javasample.ex22.OnClickListener
 
-//interface OnClickListener {
-//    fun onClick()
-//}
+// 코틀린 1.4 부터는 코틀린으로 작성된 인터페이스 중에
+// 하나의 추상 메소드를 가지는 경우, SAM 지원을 사용할 수 있습니다.
+
+fun interface OnClickListener {
+    fun onClick()
+
+    // fun foo()
+}
 
 class Button {
     var onClickListener: OnClickListener? = null
@@ -23,16 +28,18 @@ class Button {
 
 fun main() {
     val button = Button()
-    /*
-    button.onClickListener = object: OnClickListener {
+
+    button.onClickListener = object : OnClickListener {
         override fun onClick() {
             println("Button click")
         }
     }
-    */
+
+
     button.onClickListener = OnClickListener {
         println("Button click")
     }
+
 
     button.click()
 }
