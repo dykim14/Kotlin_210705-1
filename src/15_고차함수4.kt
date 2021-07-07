@@ -49,12 +49,17 @@ fun foo(a: Int, b: Int) {}
 // a와 b는 foo 함수가 끝나는 시점에 파괴됩니다.
 
 
+/*
 fun modulo(k: Int, r: Int): (Int) -> Boolean {
     // 람다 표현식에서 참조되는 k와 r은 람다 표현식이 유효할 때까지 수명이 연장됩니다.
     // => 클로저
     return { e: Int ->
         e % k == r
     }
+}
+*/
+fun modulo(k: Int, r: Int): (Int) -> Boolean = { e: Int ->
+    e % k == r
 }
 
 fun main() {
