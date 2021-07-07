@@ -44,14 +44,20 @@ fun <X, Y, Z> compose(f: (X) -> Y, g: (Y) -> Z) : (X) -> Z = { x ->
 */
 
 // 2. 확장 함수 + 중위 함수
-infix fun <X, Y, Z> ((X) -> Y).compose(g: (Y) -> Z) : (X) -> Z = { x ->
+infix fun <X, Y, Z> ((X) -> Y).compose(g: (Y) -> Z): (X) -> Z = { x ->
+    g(this(x))
+}
+
+// 3. 연산자 오버로딩을 통한 함수 합성
+operator fun <X, Y, Z> ((X) -> Y).plus(g: (Y) -> Z): (X) -> Z = { x ->
     g(this(x))
 }
 
 fun main() {
     // val h = (String::length).compose(Any::hashCode)
 
-    val h = String::length compose Any::hashCode
+    // val h = String::length compose Any::hashCode
+    val h = String::length + Any::hashCode
     val x = "hello"
     val z = h(x)
 
