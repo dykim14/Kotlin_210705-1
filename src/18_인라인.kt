@@ -40,6 +40,7 @@ class IncThread(private val lock: Lock) : Thread() {
     */
 
     // 동기화를 안전하게 처리할 수 있는 함수를 만들어봅시다.
+    /*
     override fun run() {
         for (i in 1..1_000_000) {
             //--------
@@ -50,6 +51,15 @@ class IncThread(private val lock: Lock) : Thread() {
                 lock.unlock()
             }
             //--------
+        }
+    }
+    */
+
+    override fun run() {
+        for (i in 1..1_000_000) {
+            withLock(lock) {
+                n += 1
+            }
         }
     }
 }
