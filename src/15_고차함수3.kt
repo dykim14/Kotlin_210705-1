@@ -77,6 +77,49 @@ fun main() {
         it % 2 == 0
     }
 
+    var fn: (Int) -> Boolean = ::isEven
+    fn = { e ->
+        e % 2 == 0
+    }
+
+    fun goo(block: (Char, Double) -> Unit) {
+        block('A', 3.14)
+    }
+
+    goo { a: Char, b: Double ->
+        println("a: $a / b: $b")
+    }
+
+    fun fetch(
+        onSuccess: (Int) -> Unit,
+        onFailure: (Throwable) -> Unit
+    ) {
+    }
+
+
+    /*
+    fetch({
+
+    }, {
+
+    })
+
+    fetch({
+
+    }) {
+
+    }
+    */
+    // 함수가 두 개 이상의 함수를 인자로 전달받는 경우,
+    // 파라미터 지정 호출하는 것이 좋습니다.
+    fetch(
+        onSuccess = {
+
+        },
+        onFailure = {
+
+        }
+    )
 
 
 }
