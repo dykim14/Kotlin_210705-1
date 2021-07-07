@@ -95,7 +95,8 @@ open class Car
 class Truck(val name: String) : Car()
 
 fun foo(): Car {
-    return Car()
+    // return Car()
+    return Truck("Dump")
 }
 
 fun main() {
