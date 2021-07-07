@@ -3,6 +3,7 @@ package ex18
 
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 // 1. 코틀린은 자바의 synchronized 블록을 제공하지 않습니다.
 //  => 동기화 관련 코드를 직접 작성해야 합니다.
@@ -69,7 +70,7 @@ class IncThread(private val lock: Lock) : Thread() {
 // => 함수를 인자로 받는 함수에 대해서, 함수 호출의 오버헤드를 없앨 수 있습니다.
 //    inline: 함수를 호출하는 것이 아니라 바이트 코드로 치환합니다.
 //      1) 함수를 인자로 받는 고차 함수에서 오버헤드를 없애기 위해 사용할 수 있습니다.
-
+/*
 inline fun <T> Lock.withLock(action: () -> T): T {
     lock()
     try {
@@ -78,6 +79,7 @@ inline fun <T> Lock.withLock(action: () -> T): T {
         unlock()
     }
 }
+*/
 
 /*
 fun <T> withLock(lock: Lock, action: () -> T): T {
