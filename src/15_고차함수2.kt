@@ -40,5 +40,18 @@ fun main() {
 
     println(result1)
     println(result2)
+
+    // 익명 객체를 기반으로 정책을 전달할 수 있습니다.
+    val result3 = filter(list, object: Predicate<Int> {
+        override fun test(t: Int): Boolean {
+            return t % 2 == 0
+        }
+    })
+
+    println(result3)
 }
+
+
+
+
 
