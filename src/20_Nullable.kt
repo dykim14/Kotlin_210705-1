@@ -63,11 +63,10 @@ class User {
         // 3) Elvis operator - ?:
         //  : null 일 때 실행한 표현식을 정의합니다.
 
-        val email = email ?: return
-        val subject = subject ?: return
+        email ?: return
+        subject ?: return
 
         println("send mail - $email, $subject")
-
 
         /*
         // let은 중첩될 경우, 코드의 가독성이 떨어집니다.
