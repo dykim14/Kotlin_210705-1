@@ -1,9 +1,7 @@
 // 20_Nullable.kt
 package ex20
 
-import ex18_2.add
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import java.util.*
 
 // Nullable
 //  : 'null'을 안전하게 다루는 기술입니다.
@@ -112,7 +110,6 @@ fun main() {
     val p: Car = Truck("x")
     val p1: Car = p
 
-
     val car: Car = foo()
 
     // car as Truck
@@ -128,22 +125,6 @@ fun main() {
         println(it)
     }
 
-
     val user = getUser()
     user?.sendMail2("hello@gmail.com")
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
