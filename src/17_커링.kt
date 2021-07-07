@@ -18,19 +18,17 @@ import java.time.LocalDateTime
 // 용도
 // - 인자를 고정합니다.
 
-// fun sum2(a: Int, b: Int): Int = a + b
+fun sum2(a: Int, b: Int): Int = a + b
+fun sum2(a: Int): (b: Int) -> Int = { b ->
+    a + b
+}
 
-//fun sum2(a: Int): (b: Int) -> Int = { b ->
-//    a + b
-//}
-
-// fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
-
-//fun sum3(a: Int): (b: Int) -> (c: Int) -> Int = { b ->
-//    { c ->
-//        a + b + c
-//    }
-//}
+fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
+fun sum3(a: Int): (b: Int) -> (c: Int) -> Int = { b ->
+    { c ->
+        a + b + c
+    }
+}
 
 // (b: Int) -> (c: Int) -> Int
 //  => -> 연산자는 오른쪽에서 왼쪽으로 결합을 합니다.
@@ -58,16 +56,17 @@ fun main() {
     println(result2)
 }
 */
-fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
+// fun sum3(a: Int, b: Int, c: Int): Int = a + b + c
 // 기존 함수에 대해서 커링된 버전을 자동으로 생성하는 함수
 
-fun sum2(a: Int, b: Int): Int = a + b
-/*
-fun sum2(a: Int): (b: Int) -> Int = { b ->
-    a + b
-}
-// (Int) -> (Int) -> Int
-*/
+// (P1, P2) -> R
+// fun sum2(a: Int, b: Int): Int = a + b
+
+// (P1) -> (P2) -> R
+// fun sum2(a: Int): (b: Int) -> Int = { b ->
+//    a + b
+// }
+
 
 fun <P1, P2, R> ((P1, P2) -> R).curried(): (P1) -> (P2) -> R = { p1 ->
     { p2 ->
