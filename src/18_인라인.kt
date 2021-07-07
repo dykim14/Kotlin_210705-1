@@ -57,13 +57,25 @@ class IncThread(private val lock: Lock) : Thread() {
 
     override fun run() {
         for (i in 1..1_000_000) {
-            withLock(lock) {
+            // withLock(lock) {
+            lock.withLock {
                 n += 1
             }
         }
     }
 }
 
+// 코틀린은 Extension Function 을 통해 기능을 제공하고 있습니다.
+fun <T> Lock.withLock(action: () -> T): T {
+    lock()
+    try {
+        return action()
+    } finally {
+        unlock()
+    }
+}
+
+/*
 fun <T> withLock(lock: Lock, action: () -> T): T {
     lock.lock()
     try {
@@ -72,6 +84,7 @@ fun <T> withLock(lock: Lock, action: () -> T): T {
         lock.unlock()
     }
 }
+*/
 
 
 fun main() {
