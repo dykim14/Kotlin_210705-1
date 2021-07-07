@@ -4,14 +4,16 @@ package ex21
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
-class User(
+// 맵의 키 값으로 사용된다면, 반드시 hashCode / equals 를 제공해야 합니다.
+// => data class
+data class User(
     val name: String,
     val age: Int,
     val address: String,
     val level: Int
 )
 
-class Car(
+data class Car(
     var name: String,
     val type: String,
     val speed: Int
