@@ -72,11 +72,13 @@ fun lookForAlice2(people: List<Person>) {
 }
 
 // 3. forEach - anonymous function
+//  : 익명 함수는 함수입니다.
 fun lookForAlice5(people: List<Person>) {
     people.forEach(fun(person) {
         if (person.name == "Alice") {
             println("Found!")
-            return
+            // return                          // 지역 반환을 수행합니다.
+            return@lookForAlice5               // 비지역 반환
         }
     })
     println("Failed to find Alice")
