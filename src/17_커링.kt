@@ -1,5 +1,8 @@
 package ex17
 
+import java.lang.Appendable
+import java.time.LocalDateTime
+
 // 커링(Currying)
 // : 다중 인수를 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 작업
 
@@ -80,6 +83,7 @@ fun <P1, P2, P3, R> ((P1, P2, P3) -> R).curried(): (P1) -> (P2) -> (P3) -> R = {
     }
 }
 
+/*
 fun main() {
     val sum = { a: Int, b: Int ->
         a + b
@@ -95,6 +99,65 @@ fun main() {
 
     println(result)
 }
+*/
+
+//-------------------------
+// 써드파티 로깅 라이브러리
+enum class Level {
+    INFO, WARN
+}
+
+fun log(level: Level, appendable: Appendable, message: String) {
+    appendable.appendLine(
+        "[${level.name}][${LocalDateTime.now()}]: $message"
+    )
+}
+
+// 써드파티 라이브러리
+fun loadImage(logger: (String) -> Unit) {
+    logger("이미지 로드 시작")
+    logger("이미지 로드 완료")
+
+    logger("이미지 비트맵 변환 완료")
+}
+
+
+fun main() {
+    log(Level.INFO, System.out, "프로그램 시작")
+
+    // 1. 람다 표현식을 이용하는 방법.
+    loadImage { message ->
+        log(Level.INFO, System.out, message)
+    }
+
+    // 2. 커링을 통해 인자를 고정합니다.
+    val logger = ::log.curried()(Level.INFO)(System.out)
+    loadImage(logger)
+
+
+    log(Level.INFO, System.out, "프로그램 종료")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
