@@ -25,12 +25,28 @@ class IncThread(private val lock: Lock) : Thread() {
         var n: Int = 0
     }
 
+    // 문제점: 임계 영역 안에서 예외가 발생할 경우, unlock이 호출되지 않습니다.
+    //     => 데드락의 위험성이 있습니다.
+    /*
     override fun run() {
         for (i in 1..1_000_000) {
             //--------
             lock.lock()
             n += 1
             lock.unlock()
+            //--------
+        }
+    }
+    */
+    override fun run() {
+        for (i in 1..1_000_000) {
+            //--------
+            lock.lock()
+            try {
+                n += 1
+            } finally {
+                lock.unlock()
+            }
             //--------
         }
     }
