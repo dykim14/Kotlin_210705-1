@@ -20,6 +20,7 @@ fun main() {
 }
 */
 
+/*
 //                x         y        y       z        x         z
 fun compose(f: (String) -> Int, g: (Any) -> Int): (String) -> Int {
     return { x ->
@@ -28,9 +29,29 @@ fun compose(f: (String) -> Int, g: (Any) -> Int): (String) -> Int {
         z
     }
 }
+*/
+/*
+fun compose(f: (String) -> Int, g: (Any) -> Int): (String) -> Int = { x ->
+    g(f(x))
+}
+*/
+
+// 1. 일반화
+/*
+fun <X, Y, Z> compose(f: (X) -> Y, g: (Y) -> Z) : (X) -> Z = { x ->
+    g(f(x))
+}
+*/
+
+// 2. 확장 함수 + 중위 함수
+infix fun <X, Y, Z> ((X) -> Y).compose(g: (Y) -> Z) : (X) -> Z = { x ->
+    g(this(x))
+}
 
 fun main() {
-    val h = compose(String::length, Any::hashCode)
+    // val h = (String::length).compose(Any::hashCode)
+
+    val h = String::length compose Any::hashCode
     val x = "hello"
     val z = h(x)
 
