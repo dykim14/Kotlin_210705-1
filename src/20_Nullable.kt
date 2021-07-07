@@ -91,7 +91,30 @@ fun getUser(): User? {
     return null
 }
 
+open class Car
+class Truck(val name: String) : Car()
+
+fun foo(): Car {
+    return Car()
+}
+
 fun main() {
+    val car: Car = foo()
+
+    // car as Truck
+    // println(car.name)
+
+    if (car is Truck)
+        println(car.name)  // Smart cast
+
+    // as?: 캐스팅이 실패할 경우, 예외가 발생하는 것이 아니라
+    //      null을 반환합니다.
+    val truck = car as? Truck
+    truck?.name?.let {
+        println(it)
+    }
+
+
     val user = getUser()
     user?.sendMail2("hello@gmail.com")
 }
