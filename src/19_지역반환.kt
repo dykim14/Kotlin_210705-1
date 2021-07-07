@@ -29,13 +29,18 @@ fun lookForAlice1(people: List<Person>) {
 
 // * 지역 반환
 
+inline fun <T> Iterable<T>.forEach2(action: (T) -> Unit) {
+    for (element in this) action(element)
+}
+
+
 fun lookForAlice2(people: List<Person>) {
 
-    people.forEach { person ->
+    people.forEach2 { person ->
         if (person.name == "Alice") {
             println("Found!")
-            // return              // 비지역 반환
-            return@forEach         // 지역 반환
+            return                     // 비지역 반환 - inline
+            // return@forEach2         // 지역 반환
         }
     }
 
