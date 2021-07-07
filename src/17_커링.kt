@@ -134,7 +134,6 @@ fun main() {
     val logger = ::log.curried()(Level.INFO)(System.out)
     loadImage(logger)
 
-
     log(Level.INFO, System.out, "프로그램 종료")
 }
 
