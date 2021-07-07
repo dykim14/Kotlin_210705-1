@@ -96,9 +96,15 @@ fun <T> withLock(lock: Lock, action: () -> T): T {
 fun main() {
     val lock = ReentrantLock()
 
-
     val t1 = IncThread(lock)
     val t2 = IncThread(lock)
+
+
+    val result = lock.withLock {
+        42
+    }
+    println(result)
+
 
     t1.start()
     t2.start()

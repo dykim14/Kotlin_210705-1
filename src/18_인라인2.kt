@@ -82,7 +82,7 @@ class MainActivity : Activity() {
         // startActivity(intent)
 
 
-        // startActivity<SecondActivity>()
+        startActivity<SecondActivity>()
 
         val button = Button()
 
