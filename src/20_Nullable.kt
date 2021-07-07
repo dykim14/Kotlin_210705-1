@@ -99,7 +99,20 @@ fun foo(): Car {
     return Truck("Dump")
 }
 
+// Car?
+//  |
+// Car
+//  |
+// Truck?
+//  |
+// Truck
+//  : Nullable 타입은 Nullable이 아닌 타입의 부모 타입으로 취급됩니다.
+
 fun main() {
+    val p: Car = Truck("x")
+    val p1: Car = p
+
+
     val car: Car = foo()
 
     // car as Truck
