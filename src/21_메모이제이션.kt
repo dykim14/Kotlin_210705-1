@@ -15,6 +15,7 @@ fun fib(k: Int): Long = when (k) {
 }
 */
 
+/*
 val cache = mutableMapOf<Int, Long>()
 fun fib(k: Int): Long = when (k) {
     0, 1 -> 1
@@ -29,6 +30,18 @@ fun fib(k: Int): Long = when (k) {
         }
     }
 }
+*/
+
+// Map에서 메모이제이션을 쉽게 사용할 수 있는 기능을 제공합니다.
+//  => Extension Function
+val cache = mutableMapOf<Int, Long>()
+fun fib(k: Int): Long = cache.getOrPut(k) {
+    when (k) {
+        0, 1 -> 1
+        else -> fib(k - 1) + fib(k - 2)
+    }
+}
+
 
 fun main() {
     val result = fib(100)
