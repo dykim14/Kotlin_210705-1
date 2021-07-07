@@ -38,5 +38,45 @@ fun main() {
     })
     println(result)
 
+    // 2. 익명 함수 - 단일 표현식
+    result = filter(list, fun(e: Int) = e % 2 == 0)
+    println(result)
+
+    // 3. 람다 표현식(Lambda Expression)
+    //  : 실행 가능한 코드 블록
+    // => 블록의 마지막 라인의 결과가 블록의 최종 결과가 됩니다.
+
+    result = filter(list, { e: Int ->
+        e % 2 == 0
+    })
+    println(result)
+
+    // 4. 람다 표현식은 인자 타입 추론이 가능합니다.
+    result = filter(list, { e ->
+        e % 2 == 0
+    })
+    println(result)
+
+    // 5. 함수(filter)의 마지막 인자가 람다 표현식으로 전달될 경우,
+    //    람다 표현식의 블록을 함수의 호출 괄호 밖에 위치할 수 있습니다.
+    //   => Trailing Lambda
+    result = filter(list) { e ->
+        e % 2 == 0
+    }
+
+    fun foo(block: (Int) -> Boolean) {}
+    // 함수 인자만 존재하는 경우
+    foo { e ->
+        e % 2 == 0
+    }
+
+    // 6. 람다 표현식의 인자가 1개인 경우,
+    //    it 키워드를 통해 참조할 수 있습니다.
+    //    (인자를 명시하지 않는 경우, -> 생략 가능합니다.)
+    result = filter(list) {
+        it % 2 == 0
+    }
+
+
 
 }
