@@ -39,14 +39,27 @@ fun main() {
 }
 */
 
-// fun isOdd(e: Int) = e % k == r
-// fun isEven(e: Int) = e % k == r
+// fun isOdd(e: Int) = e % 2 == 1
+// fun isEven(e: Int) = e % 2 == 0
 
-fun modulo(k: Int, r: Int) : (Int) -> Boolean {
+fun modulo(k: Int, r: Int): (Int) -> Boolean {
     return { e: Int ->
         e % k == r
     }
 }
+
+fun main() {
+    val isOdd: (Int) -> Boolean = modulo(2, 1)
+    val isEven = modulo(2, 0)
+
+    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    var result = list.filter(modulo(2, 0))
+    println(result)
+
+    result = list.filter(modulo(2, 1))
+    println(result)
+}
+
 
 
 
