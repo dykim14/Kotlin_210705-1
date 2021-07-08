@@ -1,6 +1,7 @@
 // 25_컬렉션2.kt
 package ex25_2
 
+/*
 fun main() {
     val list = listOf(
         "Seoul 서울", "Suwon 수원", "Busan 부산", "Yongin 용인", "Daegu 대구"
@@ -78,5 +79,48 @@ fun main() {
     println(result2)
 
     println(result2.sorted())
+}
+*/
+
+fun main() {
+    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    // val list = listOf(1, 2)
+
+    // take
+    // : 원하는 크기의 데이터를 추출할 때 사용합니다.
+    var result = list.take(3)
+    println(result)
+
+    result = list.takeWhile {
+        it < 5
+    }
+    println(result)
+
+    // drop
+    // : 원하는 크기의 데이터를 제거합니다.
+    result = list.drop(3)
+    result = list.dropWhile {
+        it < 5
+    }
+    println(result)
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
