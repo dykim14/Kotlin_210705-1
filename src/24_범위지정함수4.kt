@@ -1,7 +1,6 @@
 package ex24
 
-import java.io.Closeable
-import java.io.FileInputStream
+import java.io.*
 
 // 코틀린은 Try-with-resources 문법이 존재하지 않습니다.
 // => use
@@ -23,6 +22,7 @@ class MyResource : Closeable {
     }
 }
 
+/*
 fun main() {
     val resource = MyResource()
 
@@ -30,14 +30,40 @@ fun main() {
         resource.process()
     }
 }
+*/
+
+// use를 사용할 때, 여러개의 자원이 close 호출이 보장되어야 한다면
+// 중첩이 발생할 수 밖에 없습니다.
+
+fun main() {
+    try {
+        FileOutputStream("a.txt").use { fos ->
+            BufferedOutputStream(fos).use { bos ->
+                DataOutputStream(bos).use { dos ->
+                    dos.writeInt(42)
+                    dos.writeUTF("Hello")
+                }
+            }
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+}
 
 
+// 주의사항: use는 예외를 처리하지 않습니다.
+//        비메모리 자원(Closeable)에 대해서 예외 안전하게
+//        close 호출을 보장해주는 역활만 담당합니다.
 /*
 fun main() {
     val fis = FileInputStream("a.txt")
-    val n = fis.read()
-    println(n)
 
-    fis.close()
+    try {
+        fis.use {
+            val n = it.read()
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
 }
 */

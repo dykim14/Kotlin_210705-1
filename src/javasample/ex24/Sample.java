@@ -1,5 +1,7 @@
 package javasample.ex24;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -26,11 +28,30 @@ class MyResource implements AutoCloseable {
 
 
 public class Sample {
+
+    public static void main(String[] args) {
+
+        try (FileOutputStream fos = new FileOutputStream("a.txt");
+             BufferedOutputStream bos = new BufferedOutputStream(fos);
+             DataOutputStream dos = new DataOutputStream(bos)) {
+
+            dos.writeInt(42);
+            dos.writeUTF("Hello");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*
     public static void main(String[] args) {
         try (MyResource resource = new MyResource()) {
             resource.process();
         }
     }
+    */
 
 
     /*
