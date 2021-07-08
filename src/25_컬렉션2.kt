@@ -209,7 +209,7 @@ fun main() {
 }
 */
 
-// 조건 확인 함수
+// 1. 조건 확인 함수
 //  - require: IllegalArgumentException / IllegalStateException
 //  - check: IllegalStateException
 fun logMessage(filename: String, message: String?) {
@@ -227,8 +227,17 @@ fun logMessage(filename: String, message: String?) {
     checkNotNull(message)
 }
 
+// 2. 명시적인 종료 함수: IllegalStateException
+//     Unit: 결과가 존재하지 않음을 나타내는 값
+//  Nothing: 결과가 존재하지 않는다.
+fun foo(): Nothing {
+    // error("아직 만들어지지 않았습니다")
+    TODO("아직 만들어지지 않았습니다")
+}
+
 fun main() {
-    logMessage("a.txt", null)
+    foo()
+    // logMessage("a.txt", null)
 }
 
 
