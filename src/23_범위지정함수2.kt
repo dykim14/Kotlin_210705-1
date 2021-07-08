@@ -12,7 +12,7 @@ class Button(var onClickListener: OnClickListener? = null) {
     }
 }
 
-class TextView(val text: String = "")
+class TextView(var text: String = "")
 
 // layout/list_item_user.xml
 class View {
@@ -27,6 +27,21 @@ class ViewHolder {
     val view = View()
 
     fun bind(user: User) {
+
+        view.emailTextView.text = user.email
+        view.nameTextView.text = user.name
+        view.loginButton.onClickListener = OnClickListener {
+            println("Button clicked")
+        }
+
+        // with
+        with (view) {
+            emailTextView.text = user.email
+            nameTextView.text = user.name
+            loginButton.onClickListener = OnClickListener {
+                println("Button clicked")
+            }
+        }
 
     }
 }
