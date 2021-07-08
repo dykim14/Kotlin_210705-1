@@ -13,10 +13,52 @@ fun main() {
     // 2. map
     //   : transform
     //   List<T>   ->  map  -> List<U>
-    list.map(String::lowercase)
-        .forEach(::println)
+    list.map(String::lowercase)   // List<String> -> map -> List<String>
+    // .forEach(::println)
 
-    list.map(String::length)
-        .forEach(::println)
+    list.map(String::length)      // List<String> -> map -> List<Int>
+    // .forEach(::println)
 
+    // 3. filter
+    //   : 조건이 만족되지 않는 요소를 제거한다.
+    /*
+    val result = list
+        .map {
+            if (it.startsWith("S"))  // List<String> -> map -> List<String?>
+                it.lowercase()
+            else
+                null
+        }
+        .filter {                          // List<String?> -> filter -> List<String?>
+            it != null
+        }
+        .map {                             // List<String?> -> map    -> List<String>
+            it!!
+        }
+
+    println(result)
+    */
+
+    /*
+    val result = list
+        .map {
+            if (it.startsWith("S"))  // List<String> -> map -> List<String?>
+                it.lowercase()
+            else
+                null
+        }
+        .filterNotNull()
+
+    println(result)
+    */
+
+    val result = list
+        .mapNotNull {
+            if (it.startsWith("S"))  // List<String> -> map : Nullable -> List<String>
+                it.lowercase()
+            else
+                null
+        }
+
+    println(result)
 }
