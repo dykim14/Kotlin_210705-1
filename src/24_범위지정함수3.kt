@@ -29,6 +29,4 @@ fun main() {
     }.run {
         database.create(this)
     }
-
-    
 }

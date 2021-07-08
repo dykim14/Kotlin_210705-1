@@ -11,6 +11,7 @@ import java.io.IOException;
 // 명시적인 종료 메소드를 제공해야 한다.
 
 // Try with resources 문법은 AutoCloseable 인터페이스를 구현해야 합니다.
+
 class MyResource implements AutoCloseable {
     public MyResource() {
         System.out.println("자원 할당");
