@@ -35,7 +35,7 @@ class ViewHolder {
         }
 
         // with
-        with (view) {
+        with(view) {
             emailTextView.text = user.email
             nameTextView.text = user.name
             loginButton.onClickListener = OnClickListener {
@@ -47,8 +47,25 @@ class ViewHolder {
 }
 
 fun main() {
-    val viewHolder = ViewHolder()
-    viewHolder.bind(User("Tom", "tom42@gmail.com"))
+    val user = User("Tom", "tom42@gmail.com")
+    val holder = ViewHolder()
+    
+    holder.view.emailTextView.text = user.email
+    holder.view.nameTextView.text = user.name
+    holder.view.loginButton.onClickListener = OnClickListener {
+        println("Button clicked")
+    }
+
+    with(holder.view) {
+        emailTextView.text = user.email
+        nameTextView.text = user.name
+        loginButton.onClickListener = OnClickListener {
+            println("Button clicked")
+        }
+    }
+
+
+    // viewHolder.bind(user)
 }
 
 
