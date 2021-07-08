@@ -49,6 +49,18 @@ fun main() {
     for (e in list)
         println(e)
 
+    // 코틀린에서는 확장 함수를 통해 컬렉션을 다루는 다양한 기능이
+    // 제공됩니다.
+    //  - forEach, map, flatMap, filter, sorted
+    //  - take, drop, distinct, first, last
+    //  - groupBy, zip
+    // : 위의 연산은 컬렉션을 다루는 표준적인 연산입니다.
+    //   "기본적인 사용법을 숙지해야 합니다."
+
+
+
+
+
 
 }
 
