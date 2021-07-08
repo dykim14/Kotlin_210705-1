@@ -66,13 +66,13 @@ fun main() {
 
     // 4. flatMap
     val result = list
-        .map {                          // List<String> -> map -> List<List<String>>
-            it.split(" ")
+        .map {                          // List<String> -> map -> List<List<Int>>
+            it.split(" ").map(String::length)
         }
     println(result)
 
     val result2 = list
-        .flatMap {                     // List<String> -> flatMap -> List<Int>
+        .flatMap {                      // List<String> -> flatMap -> List<Int>
             it.split(" ").map(String::length)
         }
     println(result2)
