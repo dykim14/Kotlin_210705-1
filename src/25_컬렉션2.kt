@@ -99,12 +99,36 @@ fun main() {
     // drop
     // : 원하는 크기의 데이터를 제거합니다.
     result = list.drop(3)
+    println(result)
+
     result = list.dropWhile {
         it < 5
     }
     println(result)
 
+    // distinct
+    // : unique
+    //  => 중복된 요소를 제거합니다.
+    val list2 = listOf(1, 2, 3, 1, 2, 3, 3, 2, 1, 5, 4, 3, 2, 1)
+    result = list2.distinct()
+    println(result)
 
+    result = list2.distinctBy {
+        it.hashCode()
+    }
+    println(result)
+
+    // first / last
+    //  : 단일 실패 원인은 Nullable를 통해 처리하면 편리합니다.
+    val list3: List<Int> = listOf(1, 2)
+    // println(list3[0])
+    // println(list3.first())
+    // : NoSuchElementException
+
+    list3.firstOrNull()?.let(::println)
+    list3.lastOrNull {
+        it % 2 == 1
+    }?.let(::println)
 
 }
 
