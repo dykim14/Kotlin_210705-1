@@ -3,6 +3,7 @@ package com.lge.sampleapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.lge.sampleapp.databinding.ActivityMainBinding
+import com.lge.sampleapp.databinding.MainActivityBinding
 
 // 1. build.gradle
 //   - project level: build.gradle
@@ -33,7 +34,7 @@ import com.lge.sampleapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,19 @@ class MainActivity : AppCompatActivity() {
         //        viewBinding true
         //  }
 
+
+        // View Binding을 고려한다면, 레이아웃 파일에 대한 이름 규칙을
+        // 변경하는 것이 좋습니다.
+        // 기존: activity_main.xml
+        //  - ActivityMainBinding
+        // 권장: main_activity.xml
+        //  - MainActivityBinding
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.helloButton.setOnClickListener {
+            binding.nameTextView.text = "Hello, Kotlin"
+        }
 
 
         // 1. findViewById
@@ -83,7 +97,6 @@ class MainActivity : AppCompatActivity() {
             nameTextView.text = "Hello, Kotlin"
         }
         */
-
 
 
     }
