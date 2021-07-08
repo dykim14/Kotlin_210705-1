@@ -76,4 +76,7 @@ fun main() {
             it.split(" ").map(String::length)
         }
     println(result2)
+
+    println(result2.sorted())
+
 }
