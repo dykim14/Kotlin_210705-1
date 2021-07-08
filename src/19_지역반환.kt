@@ -8,7 +8,7 @@ fun lookForAlice1(people: List<Person>) {
     for (person in people) {
         if (person.name == "Alice") {
             println("Found!")
-            // return
+            return
             // break
         }
     }
@@ -70,6 +70,22 @@ fun lookForAlice2(people: List<Person>) {
 
     println("Failed to find Alice")
 }
+
+fun lookForAlice6(people: List<Person>) {
+    people.forEach outer@{ person ->
+        people.forEach inner@{  person2 ->
+
+            if (person2.name == person.name) {
+                println("Found!!")
+                // return@inner
+                return@outer
+            }
+
+        }
+    }
+}
+
+
 
 // 3. forEach - anonymous function
 //  : 익명 함수는 함수입니다.
