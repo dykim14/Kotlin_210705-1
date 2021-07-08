@@ -24,12 +24,21 @@ import android.widget.TextView
 //    implementation 'androidx.core:core-ktx:1.6.0'
 //     : "Android Jetpack"이 제공하는 코틀린 확장 라이브러리 입니다.
 
+
+// - Kotlin
+//  View: Null X
+// View?: Nullable
+
+// View!: Platform Type
+//   => 안드로이드 코드에서 이것이 "Null"인지 "Nullable" 인지의 정보를
+//      제공하지 않습니다.
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        // 1. findViewById
         // val helloButton = findViewById<Button>(R.id.helloButton)
         val helloButton: Button = findViewById(R.id.helloButton)
         val nameTextView: TextView = findViewById(R.id.nameTextView)
