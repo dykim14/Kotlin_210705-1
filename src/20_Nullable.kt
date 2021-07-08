@@ -61,6 +61,8 @@ class User {
         // 3) Elvis operator - ?:
         //  : null 일 때 실행한 표현식을 정의합니다.
 
+        val default = email ?: "test@gmail.com"
+
         email ?: return
         subject ?: return
 
