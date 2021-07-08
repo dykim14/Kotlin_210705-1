@@ -15,6 +15,7 @@ package javasample.ex25;
 //        : 컬렉션을 순회하기 위한 반복자 객체를 반환합니다.
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;

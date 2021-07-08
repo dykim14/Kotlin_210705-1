@@ -71,7 +71,7 @@ fun main() {
 
     // 4. flatMap
     val result = list
-        .map {                          // List<String> -> map -> List<List<Int>>
+        .map { it: String ->  // List<Int>   // List<String> -> map -> List<List<Int>>
             it.split(" ").map(String::length)
         }
     println(result)
