@@ -80,8 +80,7 @@ class MainActivity : AppCompatActivity() {
         //  buildFeatures {
         //        viewBinding true
         //  }
-
-
+        
         // View Binding을 고려한다면, 레이아웃 파일에 대한 이름 규칙을
         // 변경하는 것이 좋습니다.
         // 기존: activity_main.xml
