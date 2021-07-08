@@ -1,8 +1,8 @@
 package com.lge.sampleapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.lge.sampleapp.databinding.ActivityMainBinding
 import com.lge.sampleapp.databinding.MainActivityBinding
 
 // 1. build.gradle
@@ -56,8 +56,26 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.helloButton.setOnClickListener {
-            binding.nameTextView.text = "Hello, Kotlin"
+        // binding.helloButton.setOnClickListener {
+        //    binding.nameTextView.text = "Hello, Kotlin"
+        // }
+
+        // android:id=@+id/open_button -> binding.openButton
+        // android:id=@+id/helloButton -> binding.helloButton
+
+        with(binding) {
+            helloButton.setOnClickListener {
+                nameTextView.text = "Hello, Kotlin"
+            }
+
+            openButton.setOnClickListener {
+                val intent = Intent(
+                    this@MainActivity,
+                    SecondActivity::class.java
+                )
+
+                startActivity(intent)
+            }
         }
 
 
