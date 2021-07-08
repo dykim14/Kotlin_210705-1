@@ -3,7 +3,7 @@ package ex25_2
 
 fun main() {
     val list = listOf(
-        "Seoul", "Suwon", "Busan", "Yongin", "Daegu"
+        "Seoul 서울", "Suwon 수원", "Busan 부산", "Yongin 용인", "Daegu 대구"
     )
 
     // 1. forEach - 순회
@@ -52,6 +52,7 @@ fun main() {
     println(result)
     */
 
+    /*
     val result = list
         .mapNotNull {
             if (it.startsWith("S"))  // List<String> -> map : Nullable -> List<String>
@@ -61,4 +62,18 @@ fun main() {
         }
 
     println(result)
+    */
+
+    // 4. flatMap
+    val result = list
+        .map {                          // List<String> -> map -> List<List<String>>
+            it.split(" ")
+        }
+    println(result)
+
+    val result2 = list
+        .flatMap {                     // List<String> -> flatMap -> List<Int>
+            it.split(" ").map(String::length)
+        }
+    println(result2)
 }
