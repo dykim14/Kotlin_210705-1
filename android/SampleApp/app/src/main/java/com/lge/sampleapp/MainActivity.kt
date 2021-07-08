@@ -155,10 +155,13 @@ class MainActivity : AppCompatActivity() {
             nameTextView.text = "Hello, Kotlin"
         }
         */
-
-
     }
 }
+
+// Single Activity Architecture
+// => 화면을 구성할 때, 액티비티를 1개만 두고,
+//    프래그먼트를 통해 화면을 구성하는 것이 좋습니다.
+//    액티비티 역활: 프래그먼트를 호스팅 합니다.
 
 
 
