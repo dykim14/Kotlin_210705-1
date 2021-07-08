@@ -5,14 +5,14 @@ package javasample.ex25;
 //
 //  약속된 인터페이스를 구현해야 합니다.
 //   1) Iterator<E> : SListIterator<E>
-//   2) Iterable<E> : SList<E>
-
-import java.util.Iterator;
-
 //     boolean hasNext();
 //         : 다음 요소가 존재하는지 여부를 확인한다.
 //     E next();
 //         : 현재 요소의 값을 반환하고, 다음 위치로 이동한다.
+
+//   2) Iterable<E> : SList<E>
+
+import java.util.Iterator;
 
 class SListIterator<E> implements Iterator<E> {
     private SList.Node<E> current;
