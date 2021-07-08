@@ -1,6 +1,8 @@
 // 25_컬렉션2.kt
 package ex25_2
 
+import java.io.File
+import java.lang.IllegalArgumentException
 import java.util.stream.Collectors
 
 /*
@@ -174,6 +176,7 @@ fun main() {
 }
 */
 
+/*
 fun main() {
     // Sequence API
     val users = listOf(
@@ -203,6 +206,26 @@ fun main() {
     for (e in result) {
         println(e)
     }
+}
+*/
+
+// 조건 확인 함수
+//  - require
+//  - check
+fun logMessage(filename: String, message: String?) {
+    val f = File(filename)
+
+    /*
+    if (f.exists().not()) {
+        throw IllegalArgumentException("file not found")
+    }
+    */
+    require(f.exists())
+    requireNotNull(message)
+}
+
+fun main() {
+    logMessage("a.txt", null)
 }
 
 
