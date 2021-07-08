@@ -1,6 +1,8 @@
 // 25_컬렉션2.kt
 package ex25_2
 
+import java.util.stream.Collectors
+
 /*
 fun main() {
     val list = listOf(
@@ -135,6 +137,7 @@ fun main() {
 
 data class User(val name: String, val age: Int)
 
+/*
 fun main() {
     val users = listOf(
         User("Tom1", 10),
@@ -147,6 +150,61 @@ fun main() {
         User("Alice3", 55),
         User("Bob3", 65),
     )
+
+    // 나이대 기반으로 데이터를 구분하고 싶다. - groupBy
+    // => Map<String, List<User>>
+    val result = users.groupBy { user ->
+        when (user.age) {
+            in 0..9 -> "어린이"
+            in 10..19 -> "청소년"
+            in 20..29 -> "청년"
+            else -> "어른"
+        }
+    }
+
+    println(result)
+
+    // zip
+    val list1 = listOf("Korea", "America", "China")
+    val list2 = listOf("KR", "US", "CN")
+
+    list1.zip(list2) { country, code ->
+        println("$country / $code")
+    }
+}
+*/
+
+fun main() {
+    // Sequence API
+    val users = listOf(
+        User("Tom", 42),
+        User("Bob", 15),
+        User("Alice", 22),
+    )
+
+    val ages = users.map { it.age }
+    println(ages)
+
+    // Stream API
+    // 1. 전체 데이터에 대한 연산을 메모리에서 바로 수행하는 것이 아니라,
+    //    하나씩 처리합니다.
+    // 2. 쉽게 병렬처리를 수행할 수 있습니다.
+    // 3. 안드로이드에서 Stream API를 사용하기 위해서는
+    //    minimum SDK 24 이상에서 사용할 수 있었습니다.
+    //   => Android Gradle 4 이상을 사용하면,
+    //      "Stream API"를 사용할 수 있습니다.
+    val result = users
+        // .stream()
+        .parallelStream()
+        .map { it. age }
+        // .collect(Collectors.toList())
+
+    for (e in result) {
+        println(e)
+    }
+
+
+
 }
 
 
