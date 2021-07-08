@@ -2,7 +2,7 @@ package com.lge.sampleapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.lge.sampleapp.databinding.ActivityMainBinding
 
 // 1. build.gradle
 //   - project level: build.gradle
@@ -32,9 +32,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 //      제공하지 않습니다.
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // setContentView(R.layout.activity_main)
+
+        // 3. View-Binding
+        //  - app module build.gradle
+        //  buildFeatures {
+        //        viewBinding true
+        //  }
+
+
 
         // 1. findViewById
         /*
@@ -60,12 +71,19 @@ class MainActivity : AppCompatActivity() {
         //  : Deprecated!
         //     id 'kotlin-android-extensions'
         //     1) findViewById를 자동으로 처리하는 기능
-        //   import kotlinx.android.synthetic.main.activity_main.*
-        //      => View Binding 으로 대체되었습니다.
-
+        //        - import kotlinx.android.synthetic.main.activity_main.*
+        //        - 오류 가능성(동일한 아이디를 사용한 레이아웃에서 임포트가 잘못되는 문제)
+        //        - 캐싱: 리사이클러뷰에서는 제대로 캐싱되지 않기 때문에
+        //               findViewById를 호출하는 비효율적인 문제
+        //        => View Binding 으로 대체되었습니다.
+        //
+        //    2) Parcelable
+        /*
         helloButton.setOnClickListener {
             nameTextView.text = "Hello, Kotlin"
         }
+        */
+
 
 
     }
