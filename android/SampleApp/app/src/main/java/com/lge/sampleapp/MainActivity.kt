@@ -2,6 +2,8 @@ package com.lge.sampleapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import com.lge.sampleapp.databinding.MainActivityBinding
 
@@ -31,6 +33,34 @@ import com.lge.sampleapp.databinding.MainActivityBinding
 // View!: Platform Type
 //   => 안드로이드 코드에서 이것이 "Null"인지 "Nullable" 인지의 정보를
 //      제공하지 않습니다.
+
+
+data class User(val name: String, val age: Int) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readInt()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeInt(age)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         // android:id=@+id/open_button -> binding.openButton
         // android:id=@+id/helloButton -> binding.helloButton
 
+        val user = User("Tom", 42)
         with(binding) {
             helloButton.setOnClickListener {
                 nameTextView.text = "Hello, Kotlin"
@@ -73,6 +104,9 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     SecondActivity::class.java
                 )
+
+                // Parcelable 인터페이스를 만족해야 합니다.
+                intent.putExtra("user", user)
 
                 startActivity(intent)
             }
