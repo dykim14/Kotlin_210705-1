@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.lge.sampleapp.databinding.MainFragmentBinding
 
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +30,105 @@ class MainActivity2 : AppCompatActivity() {
 }
 
 // fragment.MainFragment.kt
+/*
+class MainFragment : Fragment(R.layout.main_fragment) {
+
+    lateinit var helloButton: Button
+    lateinit var nameTextView: TextView
+
+    /*
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(
+        R.layout.main_fragment,
+        container, false
+    )
+    */
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        helloButton = view.findViewById(R.id.helloButton)
+        nameTextView = view.findViewById(R.id.nameTextView)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        helloButton.setOnClickListener {
+            nameTextView.text = "Hello, Kotlin"
+        }
+    }
+}
+*/
+
+// View Binding - Fragment
+/*
 class MainFragment : Fragment() {
+
+    // layout/main_fragment.xml
+    private var _binding: MainFragmentBinding? = null
+
+    private val binding: MainFragmentBinding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(
-            R.layout.main_fragment,
-            container, false
-        )
-
-        return view
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        return _binding?.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        binding.helloButton.setOnClickListener {
+            binding.nameTextView.text = "Hello, Kotlin"
+        }
+    }
+
+    // 주의사항: 프래그먼트에서 View binding을 사용할 때
+    //         메모리 누수의 위험성이 있습니다.
+    //  - .addToBackStack()
+    //   => 프래그먼트는 유효하지만, 뷰는 유효하지 않을 수 있습니다.
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+*/
+
+class MainFragment : Fragment(R.layout.main_fragment) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 프로퍼티로 바인딩 객체를 사용하지 않는다면,
+        // 메모리 관리에 대한 부분을 처리하지 않아도 됩니다.
+
+        val binding = MainFragmentBinding.bind(view)
+        binding.helloButton.setOnClickListener {
+            binding.nameTextView.text = "Hello, Kotlin2"
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
