@@ -30,3 +30,21 @@ class SList<E> : Iterable<E> {
 
     override fun iterator() = SListIterator(head)
 }
+
+// 코틀린은 클래스의 제네릭 인자를 생성자 / 변수 타입을 통해 추론할 수 있습니다.
+fun main() {
+    // val list = SList<Int>()
+    val list: SList<Int> = SList()
+    list.addFront(10)
+    list.addFront(20)
+    list.addFront(30)
+
+    println(list.front)
+}
+
+
+
+
+
+
+
