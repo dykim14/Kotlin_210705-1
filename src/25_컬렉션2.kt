@@ -210,8 +210,8 @@ fun main() {
 */
 
 // 조건 확인 함수
-//  - require
-//  - check
+//  - require: IllegalArgumentException / IllegalStateException
+//  - check: IllegalStateException
 fun logMessage(filename: String, message: String?) {
     val f = File(filename)
 
@@ -220,8 +220,11 @@ fun logMessage(filename: String, message: String?) {
         throw IllegalArgumentException("file not found")
     }
     */
-    require(f.exists())
-    requireNotNull(message)
+    // require(f.exists())
+    // requireNotNull(message)
+
+    check(f.exists())
+    checkNotNull(message)
 }
 
 fun main() {
