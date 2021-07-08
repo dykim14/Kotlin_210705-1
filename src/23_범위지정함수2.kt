@@ -1,6 +1,10 @@
 // 23_범위지정함수2.kt
 package ex23_2
 
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+import kotlin.test.assertNotEquals
+
 
 fun interface OnClickListener {
     fun onClick()
@@ -46,10 +50,48 @@ class ViewHolder {
     }
 }
 
+inline fun <T, R> with1(receiver: T, block: T.() -> R): R {
+    return receiver.block()
+}
+
+// 3. with
+//  : Nullable이 아닌 수신 객체를 참조해서, 수행해야 하는 작업을 정의한다.
+
+
+// 4. also
+//  : 초기화가 아닌 유효성 체크에 많이 사용합니다.
+inline fun <T> T.also2(block: (T) -> Unit): T {
+    block(this)
+    return this
+}
+
+// 5. run
+//  : 지역 변수의 범위를 제한하거나,
+//    코드를 수행하고자 할 때 사용합니다.
+
+inline fun <R> run2(block: () -> R): R {
+    return block()
+}
+
 fun main() {
-    val user = User("Tom", "tom42@gmail.com")
+    val user = User("Tom", "tom42@gmail.com").also {
+//        assertNotEquals("Tom", it.name)
+    }
+
+    // 블록을 그냥 사용하면, 람다 표현식이 됩니다.
+    val fn = {
+
+    }
+    println(fn)
+
+    val result = run {
+        42
+    }
+    println(result)
+
+
     val holder = ViewHolder()
-    
+
     holder.view.emailTextView.text = user.email
     holder.view.nameTextView.text = user.name
     holder.view.loginButton.onClickListener = OnClickListener {
