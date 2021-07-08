@@ -1,10 +1,7 @@
 package com.lge.sampleapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 // 1. build.gradle
@@ -62,6 +59,9 @@ class MainActivity : AppCompatActivity() {
         // 2. kotlin-android-extensions
         //  : Deprecated!
         //     id 'kotlin-android-extensions'
+        //     1) findViewById를 자동으로 처리하는 기능
+        //   import kotlinx.android.synthetic.main.activity_main.*
+        //      => View Binding 으로 대체되었습니다.
 
         helloButton.setOnClickListener {
             nameTextView.text = "Hello, Kotlin"
