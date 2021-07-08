@@ -1,5 +1,7 @@
 package ex23
 
+import java.io.FileInputStream
+
 data class User(val name: String, val age: Int)
 
 class SQLBuilder {
@@ -28,5 +30,5 @@ fun main() {
         database.create(this)
     }
 
-
+    
 }
