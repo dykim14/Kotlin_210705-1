@@ -59,6 +59,7 @@ fun main() {
         val bos = BufferedOutputStream(fos)
         val dos = DataOutputStream(bos)
 
+        // Array<Closeable>
         arrayOf(fos, bos, dos).use {
             dos.writeInt(42)
             dos.writeUTF("Hello")
@@ -95,8 +96,8 @@ private inline fun <T : Closeable?> Array<T>.use(block: () -> Unit) {
         exception = e
         throw e
     } finally {
-        when {
-            exception == null -> forEach { it?.close() }
+        when (exception) {
+            null -> forEach { it?.close() }
             else -> forEach {
                 try {
                     it?.close()
