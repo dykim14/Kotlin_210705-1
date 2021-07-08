@@ -40,6 +40,16 @@ fun main() {
     list.addFront(30)
 
     println(list.front)
+
+    val iterator = list.iterator()
+    while (iterator.hasNext()) {
+        println(iterator.next())
+    }
+
+    for (e in list)
+        println(e)
+
+
 }
 
 
