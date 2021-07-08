@@ -2,10 +2,10 @@ package com.lge.sampleapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import com.lge.sampleapp.databinding.MainActivityBinding
+import kotlinx.parcelize.Parcelize
 
 // 1. build.gradle
 //   - project level: build.gradle
@@ -34,7 +34,7 @@ import com.lge.sampleapp.databinding.MainActivityBinding
 //   => 안드로이드 코드에서 이것이 "Null"인지 "Nullable" 인지의 정보를
 //      제공하지 않습니다.
 
-
+/*
 data class User(val name: String, val age: Int) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -59,7 +59,12 @@ data class User(val name: String, val age: Int) : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 }
+*/
+
+@Parcelize
+data class User(val name: String, val age: Int) : Parcelable
 
 
 class MainActivity : AppCompatActivity() {
@@ -144,6 +149,8 @@ class MainActivity : AppCompatActivity() {
         //        => View Binding 으로 대체되었습니다.
         //
         //    2) Parcelable
+        //      : kotlin-android-extensions에서 분리되어서
+        //        kotlin-parcelize 으로 추가하면 됩니다.
         /*
         helloButton.setOnClickListener {
             nameTextView.text = "Hello, Kotlin"
