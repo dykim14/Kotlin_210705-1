@@ -82,6 +82,7 @@ fun main() {
 }
 */
 
+/*
 fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     // val list = listOf(1, 2)
@@ -129,7 +130,23 @@ fun main() {
     list3.lastOrNull {
         it % 2 == 1
     }?.let(::println)
+}
+*/
 
+data class User(val name: String, val age: Int)
+
+fun main() {
+    val users = listOf(
+        User("Tom1", 10),
+        User("Alice1", 15),
+        User("Bob1", 15),
+        User("Tom2", 20),
+        User("Alice2", 45),
+        User("Bob2", 35),
+        User("Tom3", 50),
+        User("Alice3", 55),
+        User("Bob3", 65),
+    )
 }
 
 
