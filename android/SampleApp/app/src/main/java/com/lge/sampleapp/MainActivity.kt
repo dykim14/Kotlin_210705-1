@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 // 1. build.gradle
 //   - project level: build.gradle
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // 1. findViewById
+        /*
         // val helloButton = findViewById<Button>(R.id.helloButton)
         val helloButton: Button = findViewById(R.id.helloButton)
         val nameTextView: TextView = findViewById(R.id.nameTextView)
@@ -55,6 +57,16 @@ class MainActivity : AppCompatActivity() {
         helloButton.setOnClickListener {
             nameTextView.text = "Hello, Kotlin"
         }
+        */
+
+        // 2. kotlin-android-extensions
+        //  : Deprecated!
+        //     id 'kotlin-android-extensions'
+
+        helloButton.setOnClickListener {
+            nameTextView.text = "Hello, Kotlin"
+        }
+
 
     }
 }
