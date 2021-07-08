@@ -193,18 +193,16 @@ fun main() {
     //    minimum SDK 24 이상에서 사용할 수 있었습니다.
     //   => Android Gradle 4 이상을 사용하면,
     //      "Stream API"를 사용할 수 있습니다.
+    // https://developer.android.com/studio/write/java8-support?hl=ko#groovy
     val result = users
         // .stream()
         .parallelStream()
-        .map { it. age }
-        // .collect(Collectors.toList())
+        .map { it.age }
+    // .collect(Collectors.toList())
 
     for (e in result) {
         println(e)
     }
-
-
-
 }
 
 
