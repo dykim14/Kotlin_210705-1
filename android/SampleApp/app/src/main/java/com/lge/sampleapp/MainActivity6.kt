@@ -2,10 +2,15 @@ package com.lge.sampleapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.lge.sampleapp.databinding.MainActivity5Binding
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import okhttp3.OkHttpClient
@@ -71,6 +76,12 @@ private val httpClient = OkHttpClient.Builder()
 
 // 4) Scheduler
 //  : 작업을 수행하는 스레드를 제어할 수 있습니다.
+//
+//  관찰의 대상(Observable): subscribeOn
+//   - 관찰의 대상이 수행되는 스레드 컨텍스트를 지정할 수 있습니다.
+
+//  관찰자(Observer): observeOn
+//   - 관찰자의 로직이 수행되는 스레드 컨텍스트를 지정할 수 있습니다.
 
 // 5) Disposable
 // : Observer가 Observable을 구독할 때 형성되는 이벤트 스트림은 자원입니다.
@@ -132,22 +143,41 @@ class MainActivity6 : AppCompatActivity() {
             val observable = githubApi.getUserRx("Google")
 
             // observable.subscribe({ }, { }, { })
-            observable.subscribeBy(
-                onNext = { user ->
-                    Log.i(TAG, "onNext: $user")
-                },
-                onError = { t ->
-                    Log.e(TAG, "onError: ${t.localizedMessage}", t)
-                },
-                onComplete = {
-                    Log.i(TAG, "onComplete")
-                }
-            )
+            observable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onNext = { user ->
+                        Log.i(TAG, "onNext: $user")
+                        update(user)
+                        Toast.makeText(
+                            this,
+                            "user: ${user.login}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                    onError = { t ->
+                        Log.e(TAG, "onError: ${t.localizedMessage}", t)
+                    },
+                    onComplete = {
+                        Log.i(TAG, "onComplete")
+                    }
+                )
 
 
         }
     }
 
+    private fun update(user: User) {
+        binding.loginTextView.text = user.login
+
+        binding.avatarImageView.load(user.avatarUrl) {
+            transformations(
+                CircleCropTransformation(),
+                GrayscaleTransformation()
+            )
+            crossfade(300)
+        }
+    }
 }
 
 
