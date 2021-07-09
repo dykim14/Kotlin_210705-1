@@ -77,6 +77,22 @@ class MainActivity5 : AppCompatActivity() {
         binding.loadButton.setOnClickListener {
             val call = githubApi.getUser("Google")
 
+
+            call.enqueue(
+                onResponse = { response ->
+                    if (response.isSuccessful.not()) {
+                        return@enqueue
+                    }
+
+                    val user = response.body() ?: return@enqueue
+                    update(user)
+                },
+                onFailure = { t ->
+                    Log.e(TAG, t.localizedMessage, t)
+                }
+            )
+            
+            /*
             call.enqueue(object : Callback<User> {
                 override fun onResponse(
                     call: Call<User>,
@@ -96,8 +112,8 @@ class MainActivity5 : AppCompatActivity() {
                 ) {
                     Log.e(TAG, t.localizedMessage, t)
                 }
-
             })
+            */
 
         }
     }
@@ -113,6 +129,24 @@ class MainActivity5 : AppCompatActivity() {
             crossfade(300)
         }
     }
+}
+
+inline fun <T> Call<T>.enqueue(
+    crossinline onResponse: (response: Response<T>) -> Unit,
+    crossinline onFailure: (t: Throwable) -> Unit
+) {
+
+    enqueue(object : Callback<T> {
+        override fun onResponse(
+            call: Call<T>,
+            response: Response<T>
+        ) = onResponse(response)
+
+        override fun onFailure(
+            call: Call<T>,
+            t: Throwable
+        ) = onFailure(t)
+    })
 }
 
 
