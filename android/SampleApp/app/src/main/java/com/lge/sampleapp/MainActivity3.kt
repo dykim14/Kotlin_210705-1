@@ -4,13 +4,18 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.viewbinding.ViewBinding
 import com.lge.sampleapp.databinding.MainActivity3Binding
+import com.lge.sampleapp.databinding.MainFragmentBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 class MainActivity3 : AppCompatActivity() {
 
+    /*
     private val binding: MainActivity3Binding by viewBinding()
     // by ActivityBindingDelegate(MainActivity3Binding::class.java, this)
 
@@ -21,8 +26,37 @@ class MainActivity3 : AppCompatActivity() {
         binding.textView.text = "Hi"
 
     }
+    */
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (savedInstanceState == null) {
+            val fragment = MainFragment2()
+            supportFragmentManager.commit {
+                replace(R.id.fragmentContainer, fragment)
+            }
+        }
+
+    }
 }
 
+
+class MainFragment2 : Fragment(R.layout.main_fragment) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 프로퍼티로 바인딩 객체를 사용하지 않는다면,
+        // 메모리 관리에 대한 부분을 처리하지 않아도 됩니다.
+        val binding = MainFragmentBinding.bind(view)
+        binding.helloButton.setOnClickListener {
+            binding.nameTextView.text = "Hello, Kotlin2"
+        }
+    }
+}
+
+
+// 액티비티 뷰 바인딩 위임 객체
 // ActivityBindingDelegate(MainActivity3Binding::class.java, this)
 // => 복잡합니다.
 // => 객체 생성 방법이 복잡할 경우, 제네릭 함수를 통해 복잡도를 감출 수 있습니다.
