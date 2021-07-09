@@ -171,6 +171,25 @@ class MainActivity4 : AppCompatActivity() {
             val call = httpClient.newCall(request)
 
             // 비동기: enqueue
+            // - 아래의 코드를 람다 표현식을 통해 수행할 수 있도록, 확장함수를 설계합니다.
+            call.enqueue(
+                onResponse = { response ->
+                    if (!response.isSuccessful)
+                        return@enqueue
+
+                    val json = response.body?.string() ?: return@enqueue
+                    Log.i(TAG, "JSON: $json")
+
+                    val user: User = gson.fromJson(json, User::class.java)
+                    Log.i(TAG, "User: $user")
+
+                    update(user)
+                },
+                onFailure = { e ->
+                    Log.e(TAG, e.localizedMessage, e)
+                }
+            )
+            /*
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     Log.e(TAG, e.localizedMessage, e)
@@ -192,6 +211,7 @@ class MainActivity4 : AppCompatActivity() {
                     }
                 }
             })
+            */
 
         }
 
@@ -232,6 +252,20 @@ class MainActivity4 : AppCompatActivity() {
         }
 
     }
+}
+
+fun Call.enqueue(
+    onResponse: (response: Response) -> Unit,
+    onFailure: (e: IOException) -> Unit
+) {
+
+    enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) =
+            onFailure(e)
+
+        override fun onResponse(call: Call, response: Response) =
+            onResponse(response)
+    })
 
 }
 
