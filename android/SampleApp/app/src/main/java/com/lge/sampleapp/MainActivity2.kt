@@ -1,7 +1,9 @@
 package com.lge.sampleapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -77,7 +79,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 */
 
 // View Binding - Fragment
-/*
+
 class MainFragment : Fragment() {
 
     // layout/main_fragment.xml
@@ -112,9 +114,9 @@ class MainFragment : Fragment() {
         _binding = null
     }
 }
-*/
 
-class MainFragment : Fragment(R.layout.main_fragment) {
+
+class MainFragment2 : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
