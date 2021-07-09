@@ -132,7 +132,7 @@ class MainActivity4 : AppCompatActivity() {
                             Log.i(TAG, "User: $user")
 
 
-
+                            update(user)
                         }
 
                     }
@@ -149,7 +149,7 @@ class MainActivity4 : AppCompatActivity() {
     }
 
     fun update(user: User) {
-        
+        binding.loginTextView.text = user.login
     }
 
 }
