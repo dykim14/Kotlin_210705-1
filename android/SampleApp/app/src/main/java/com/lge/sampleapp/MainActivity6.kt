@@ -181,9 +181,10 @@ class MainActivity6 : AppCompatActivity() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                    onNext = { user ->
-                        update(user)
-                    },
+//                    onNext = { user ->
+//                        update(user)
+//                    },
+                    onNext = this::update,
                     onError = { t ->
                         Log.e(TAG, "onError: ${t.localizedMessage}", t)
                     },
