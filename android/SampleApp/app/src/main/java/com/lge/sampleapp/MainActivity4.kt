@@ -1,19 +1,17 @@
 package com.lge.sampleapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.annotations.SerializedName
 import com.lge.sampleapp.databinding.MainActivity4Binding
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
-import kotlin.math.log
 
 
 // https://api.github.com/users/JakeWharton
@@ -149,7 +147,23 @@ class MainActivity4 : AppCompatActivity() {
     }
 
     fun update(user: User) {
-        binding.loginTextView.text = user.login
+        // UI 업데이트는 UI 스레드에서 수행되어야 합니다.
+        runOnUiThread {
+            binding.loginTextView.text = user.login
+
+            // Glide 의존성 추가
+            // implementation 'com.github.bumptech.glide:glide:4.12.0'
+            // annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+            //  : Java에서 사용하는 의존성
+
+            // 1) id kotlin-kapt 플러그인 추가
+            // 2) kapt 'com.github.bumptech.glide:compiler:4.12.0'
+            Glide.with(this)
+                .load(user.avatarUrl)
+                .circleCrop()
+                .into(binding.avatarImageView)
+        }
+
     }
 
 }
