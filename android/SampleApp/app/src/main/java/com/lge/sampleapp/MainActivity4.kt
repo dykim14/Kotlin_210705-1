@@ -131,6 +131,8 @@ class MainActivity4 : AppCompatActivity() {
                             val user: User = gson.fromJson(json, User::class.java)
                             Log.i(TAG, "User: $user")
 
+
+
                         }
 
                     }
@@ -145,6 +147,11 @@ class MainActivity4 : AppCompatActivity() {
             // enqueue: 비동기
         }
     }
+
+    fun update(user: User) {
+        
+    }
+
 }
 
 
