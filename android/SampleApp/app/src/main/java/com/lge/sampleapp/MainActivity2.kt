@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lge.sampleapp.databinding.ListFragmentBinding
 import com.lge.sampleapp.databinding.MainFragmentBinding
+import com.lge.sampleapp.databinding.UserListItemBinding
 
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,6 +157,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
 // RecyclerView
 // 1) ViewHolder
 // 2) ListAdapter
+/*
 private class ListAdapter(var items: List<String> = emptyList()) :
     RecyclerView.Adapter<ListAdapter.Holder>() {
 
@@ -180,9 +182,31 @@ private class ListAdapter(var items: List<String> = emptyList()) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(parent)
     override fun getItemCount(): Int = items.count()
-
 }
+*/
 
+private class ListAdapter(var items: List<String> = emptyList()) :
+    RecyclerView.Adapter<ListAdapter.Holder>() {
+
+    class Holder(val binding: UserListItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val login = items[position]
+        holder.binding.loginTextView.text = login
+        holder.binding.typeTextView.text = "User"
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val binding = UserListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+
+        return Holder(binding)
+    }
+
+
+    override fun getItemCount(): Int = items.count()
+}
 
 
 
