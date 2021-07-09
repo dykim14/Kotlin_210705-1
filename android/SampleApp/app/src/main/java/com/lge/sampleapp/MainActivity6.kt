@@ -9,9 +9,14 @@ import coil.transform.CircleCropTransformation
 import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.jakewharton.rxbinding4.view.clicks
 import com.lge.sampleapp.databinding.MainActivity5Binding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 
 private val httpClient = OkHttpClient.Builder()
@@ -126,6 +132,10 @@ interface GithubApi {
     ): Observable<SearchResult>
 }
 
+// UI의 이벤트에 대한 비동기 처리를
+// Rx를 통해서 수행할 수 있습니다.
+//    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+//    implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0'
 
 class MainActivity6 : AppCompatActivity() {
     companion object {
@@ -134,6 +144,7 @@ class MainActivity6 : AppCompatActivity() {
 
     private val binding: MainActivity5Binding by viewBinding()
 
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -192,6 +203,71 @@ class MainActivity6 : AppCompatActivity() {
 
 
         }
+    }
+    */
+
+    // var disposable: Disposable? = null
+
+    var compositeDisposable = CompositeDisposable()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // 끝나지 않는 이벤트 스트림은 화면이 종료되는 시점에,
+        // 명시적으로 해지를 해주어야 합니다.
+        /*
+        val disposable = binding.loadButton.clicks()
+            .subscribeBy {
+                Log.i(TAG, "click!")
+            }
+
+        compositeDisposable.add(disposable)
+        */
+
+        /*
+        binding.loadButton.clicks()
+            .subscribeBy {
+                Log.i(TAG, "click!")
+            }
+            .addTo(compositeDisposable)
+       */
+
+        // RxKotlin
+        compositeDisposable += binding.loadButton.clicks()
+            .throttleLast(3, TimeUnit.SECONDS)
+            .flatMap {
+                githubApi.searchUsersRx("hello")
+            }
+            .map {
+                it.items.shuffled()
+            }
+            .filter {
+                it.isNotEmpty()
+            }
+            .map {
+                it.first().login
+            }
+            .flatMap {
+                githubApi.getUserRx(it)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = {
+                    update(it)
+                },
+                onError = { t ->
+                    Log.e(TAG, "onError: ${t.localizedMessage}", t)
+                }
+            )
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // disposable?.dispose()
+        compositeDisposable.dispose()
     }
 
     private fun update(user: User) {
