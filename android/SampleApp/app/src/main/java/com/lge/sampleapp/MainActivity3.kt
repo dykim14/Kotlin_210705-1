@@ -16,7 +16,7 @@ class MainActivity3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        // setContentView(binding.root)
 
         binding.textView.text = "Hi"
 
@@ -60,6 +60,10 @@ class ActivityBindingDelegate<T : ViewBinding>(
 
         @Suppress("UNCHECKED_CAST")
         binding = inflateMethod.invoke(null, thisRef.layoutInflater) as T
+        binding?.let {
+            thisRef.setContentView(it.root)
+        }
+
 
         return binding!!
     }
