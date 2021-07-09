@@ -93,7 +93,7 @@ class MainActivity5 : AppCompatActivity() {
         binding.loadButton.setOnClickListener {
 
 
-            githubApi.searchUsers("hello")
+            githubApi.searchUsers("hello", perPage = 100)
                 .enqueue(
                     onResponse = { response ->
                         if (response.isSuccessful.not()) {
