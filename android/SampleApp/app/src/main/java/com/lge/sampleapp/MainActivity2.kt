@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.lge.sampleapp.databinding.ListFragmentBinding
 import com.lge.sampleapp.databinding.MainFragmentBinding
 
 class MainActivity2 : AppCompatActivity() {
@@ -134,6 +139,44 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 // RecyclerView는 각 아이템에 대한 레이아웃을 추가해야 합니다.
 //   - layout/user_list_item.xml
 class ListFragment : Fragment(R.layout.list_fragment) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = ListFragmentBinding.bind(view)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+}
+
+// RecyclerView
+// 1) ViewHolder
+// 2) ListAdapter
+
+
+private class ListAdapter(var items: List<String> = emptyList()) :
+    RecyclerView.Adapter<ListAdapter.Holder>() {
+
+    class Holder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context)
+            .inflate(R.layout.user_list_item, parent, false)
+    )
+
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        with(holder.itemView) {
+            val loginTextView: TextView = findViewById(R.id.loginTextView)
+            val typeTextView: TextView = findViewById(R.id.typeTextView)
+            val avatarImageView: ImageView = findViewById(R.id.avatarImageView)
+
+            val login = items[position]
+            loginTextView.text = login
+            typeTextView.text = "User"
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(parent)
+    override fun getItemCount(): Int = items.count()
 
 }
 
