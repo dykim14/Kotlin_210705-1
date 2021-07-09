@@ -3,10 +3,15 @@ package com.lge.sampleapp
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
 import com.lge.sampleapp.databinding.MainActivity3Binding
 import com.lge.sampleapp.databinding.MainFragmentBinding
@@ -30,6 +35,7 @@ class MainActivity3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main2)
 
         if (savedInstanceState == null) {
             val fragment = MainFragment2()
@@ -43,15 +49,67 @@ class MainActivity3 : AppCompatActivity() {
 
 
 class MainFragment2 : Fragment(R.layout.main_fragment) {
+    private val binding: MainFragmentBinding by viewBinding()
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.helloButton.setOnClickListener {
+            binding.nameTextView.text = "Hello, Kotlin2"
+        }
+    }
+
+
+    /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 프로퍼티로 바인딩 객체를 사용하지 않는다면,
-        // 메모리 관리에 대한 부분을 처리하지 않아도 됩니다.
         val binding = MainFragmentBinding.bind(view)
         binding.helloButton.setOnClickListener {
             binding.nameTextView.text = "Hello, Kotlin2"
         }
+    }
+    */
+}
+
+
+inline fun <reified T : ViewBinding> Fragment.viewBinding() =
+    FragmentViewBindingDelegate(T::class.java, this)
+
+class FragmentViewBindingDelegate<T : ViewBinding>(
+    bindingClass: Class<T>,
+    val fragment: Fragment
+) : ReadOnlyProperty<Fragment, T> {
+    private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
+    private var binding: T? = null
+
+    private val bindMethod = bindingClass.getMethod("bind", View::class.java)
+
+    init {
+        fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
+            viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                fun onDestroy() {
+                    // Lifecycle listeners are called before onDestroyView in a Fragment.
+                    // However, we want views to be able to use bindings in onDestroyView
+                    // to do cleanup so we clear the reference one frame later.
+                    clearBindingHandler.post { binding = null }
+                }
+            })
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        binding?.let { return it }
+
+        val lifecycle = fragment.viewLifecycleOwner.lifecycle
+        if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
+            error("Cannot access view bindings. View lifecycle is ${lifecycle.currentState}!")
+        }
+
+        binding = bindMethod.invoke(null, thisRef.requireView()) as T
+        return binding!!
     }
 }
 
