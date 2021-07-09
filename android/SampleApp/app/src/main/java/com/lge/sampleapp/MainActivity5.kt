@@ -81,6 +81,37 @@ val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 // 2. JSON deserialization 을 자동으로 처리합니다. - converter(Gson)
 // 3. 콜백이 UI 스레드에서 수행되는 것을 보장합니다.
 
+// * Callback의 문제점
+//  => 흐름 제어가 어렵습니다.
+// val ra = a()
+// val rb = b(ra);
+// val rc = c(rb);
+// print(rc)
+
+// 콜백 지옥
+// a { ra ->
+//   b(ra) { rb ->
+//     c(rb) { rc ->
+//         print(rc)
+//     }
+//   }
+// }
+//
+// 안드로이드에서 콜백 지옥을 해결하는 3가지 방법
+//    1) Android Jetpack LiveData
+//      => 간결하고 직관적으로 사용할 수 있습니다.
+//         제공하는 기능이 많이 없습니다.
+//
+//    2) RxJava / RxKotlin - Reactive eXtension
+//      => 비동기에 대한 처리를 효과적으로 수행할 수 있고,
+//         다양한 연산을 지원합니다.
+//
+//    3) Kotlin coroutine
+
+
+
+
+
 class MainActivity5 : AppCompatActivity() {
     companion object {
         const val TAG = "MainActivity5"
