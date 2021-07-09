@@ -3,6 +3,7 @@ package com.lge.sampleapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.Gson
 import com.lge.sampleapp.databinding.MainActivity4Binding
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -30,6 +31,27 @@ import kotlin.math.log
 
 // OkHttpClient
 //   : 동기식 호출과 비동기식 호출을 모두 지원합니다.
+// Google Gson
+//   의존성 추가
+//   :  implementation 'com.google.code.gson:gson:2.8.7'
+
+/*
+{
+    "login": "JakeWharton",
+    "id": 66577,
+    "avatar_url": "https://avatars.githubusercontent.com/u/66577?v=4",
+    "type": "User",
+    "name": "Jake Wharton",
+}
+*/
+
+data class User(
+    val login: String,
+    val id: Int,
+    val avatarUrl: String,
+    val type: String,
+    val name: String
+)
 
 class MainActivity4 : AppCompatActivity() {
     private val binding: MainActivity4Binding by viewBinding()
@@ -80,6 +102,8 @@ class MainActivity4 : AppCompatActivity() {
             }).start()
             */
 
+            val gson = Gson()
+
             Thread {
                 try {
                     val response: Response = call.execute()
@@ -96,6 +120,10 @@ class MainActivity4 : AppCompatActivity() {
 
                         response.body?.string()?.let { json ->
                             Log.i(TAG, "JSON: $json")
+
+                            val user: User = gson.fromJson(json, User::class.java)
+                            Log.i(TAG, "User: $user")
+
                         }
 
                     }

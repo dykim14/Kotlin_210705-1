@@ -63,8 +63,8 @@ data class User(val name: String, val age: Int) : Parcelable {
 }
 */
 
-@Parcelize
-data class User(val name: String, val age: Int) : Parcelable
+// @Parcelize
+// data class User(val name: String, val age: Int) : Parcelable
 
 
 class MainActivity : AppCompatActivity() {
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         // android:id=@+id/open_button -> binding.openButton
         // android:id=@+id/helloButton -> binding.helloButton
 
-        val user = User("Tom", 42)
+        // val user = User("Tom", 42)
         with(binding) {
             helloButton.setOnClickListener {
                 nameTextView.text = "Hello, Kotlin"
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 // Parcelable 인터페이스를 만족해야 합니다.
-                intent.putExtra("user", user)
+                // intent.putExtra("user", user)
 
                 startActivity(intent)
             }
