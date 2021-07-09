@@ -2,9 +2,13 @@ package com.lge.sampleapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.lge.sampleapp.databinding.MainActivity4Binding
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import java.io.IOException
 import kotlin.math.log
 
 
@@ -30,6 +34,10 @@ import kotlin.math.log
 class MainActivity4 : AppCompatActivity() {
     private val binding: MainActivity4Binding by viewBinding()
 
+    companion object {
+        const val TAG = "MainActivity4"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,7 +58,56 @@ class MainActivity4 : AppCompatActivity() {
                     })
                 }.build()
 
+            // 2. Request 객체 생성
+            //      URL: https://api.github.com/users/JakeWharton
+            //   METHOD: GET / POST / PUT / DELETE
+            val request = Request.Builder().apply {
+                get()
+                url("https://api.github.com/users/JakeWharton")
+            }.build()
 
+            // 3. 동기 / 비동기 - Call
+            val call = httpClient.newCall(request)
+
+            // execute: 동기
+            //  - android.os.NetworkOnMainThreadException
+
+            /*
+            Thread(object : Runnable {
+                override fun run() {
+
+                }
+            }).start()
+            */
+
+            Thread {
+                try {
+                    val response: Response = call.execute()
+
+                    // HTTP 성공 / 실패
+                    //  : Status Code
+                    //  200 ~ 299 - Success
+                    //  400 ~ 499 - Client Error
+                    //  500 ~ 599 - Server Error
+                    // val statusCode = response.code
+                    // if (statusCode in 200..299)
+
+                    if (response.isSuccessful) {
+
+                        response.body?.string()?.let { json ->
+                            Log.i(TAG, "JSON: $json")
+                        }
+
+                    }
+
+                } catch (e: IOException) {
+                    Log.e(TAG, e.localizedMessage, e)
+                }
+
+            }.start()
+
+
+            // enqueue: 비동기
         }
     }
 }
