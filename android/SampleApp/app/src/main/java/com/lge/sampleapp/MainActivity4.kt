@@ -3,6 +3,9 @@ package com.lge.sampleapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.lge.sampleapp.databinding.MainActivity4Binding
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import kotlin.math.log
 
 
 // https://api.github.com/users/JakeWharton
@@ -21,6 +24,9 @@ import com.lge.sampleapp.databinding.MainActivity4Binding
 //    implementation 'com.squareup.okhttp3:logging-interceptor'
 
 
+// OkHttpClient
+//   : 동기식 호출과 비동기식 호출을 모두 지원합니다.
+
 class MainActivity4 : AppCompatActivity() {
     private val binding: MainActivity4Binding by viewBinding()
 
@@ -28,7 +34,27 @@ class MainActivity4 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding.loadButton.setOnClickListener {
+            // 1. OKHttpClient 객체 생성
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+            val httpClient = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+
 
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
