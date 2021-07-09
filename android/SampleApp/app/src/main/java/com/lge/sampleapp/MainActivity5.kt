@@ -2,6 +2,7 @@ package com.lge.sampleapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -101,12 +102,23 @@ class MainActivity5 : AppCompatActivity() {
                         }
 
                         val result = response.body() ?: return@enqueue
-
                         val user = result.items.shuffled().firstOrNull()
                             ?: return@enqueue
 
 
-                        Log.i(TAG, "name: ${user.name?.length}")
+                        githubApi.getUser(user.login)
+                            .enqueue(
+                                onResponse = { userResponse ->
+
+                                    val name = userResponse.body()?.name ?: "Unknown"
+                                    Toast.makeText(this, name, Toast.LENGTH_SHORT)
+                                        .show()
+
+                                }, onFailure = { t ->
+                                    Log.e(TAG, t.localizedMessage, t)
+                                }
+                            )
+
 
                         update(user)
 
