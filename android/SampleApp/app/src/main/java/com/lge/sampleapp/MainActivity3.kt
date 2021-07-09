@@ -11,8 +11,8 @@ import kotlin.reflect.KProperty
 
 class MainActivity3 : AppCompatActivity() {
 
-    private val binding: MainActivity3Binding
-            by ActivityBindingDelegate(MainActivity3Binding::class.java, this)
+    private val binding: MainActivity3Binding by viewBinding()
+    // by ActivityBindingDelegate(MainActivity3Binding::class.java, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +22,18 @@ class MainActivity3 : AppCompatActivity() {
 
     }
 }
+
+// ActivityBindingDelegate(MainActivity3Binding::class.java, this)
+// => 복잡합니다.
+// => 객체 생성 방법이 복잡할 경우, 제네릭 함수를 통해 복잡도를 감출 수 있습니다.
+/*
+inline fun <reified T : ViewBinding> Activity.viewBinding(): ActivityBindingDelegate<T> {
+    return ActivityBindingDelegate(T::class.java, this)
+}
+*/
+inline fun <reified T : ViewBinding> Activity.viewBinding() =
+    ActivityBindingDelegate(T::class.java, this)
+
 
 // 액티비티와 프래그먼트에서 View Binding을 사용할 때,
 // 쉽게 사용할 수 있도록 하고 싶다.
