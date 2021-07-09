@@ -35,12 +35,20 @@ class MainActivity4 : AppCompatActivity() {
 
         binding.loadButton.setOnClickListener {
             // 1. OKHttpClient 객체 생성
+            /*
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val httpClient = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build()
+            */
+            val httpClient = OkHttpClient.Builder()
+                .apply {
+                    addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    })
+                }.build()
 
 
         }
