@@ -51,7 +51,7 @@ interface GithubApi {
         @Query("per_page") perPage: Int = 10
     ): Call<SearchResult>
 }
-*/
+
 
 // 3. OKHttpClient 객체 생성
 private val httpClient = OkHttpClient.Builder()
@@ -76,6 +76,8 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
 // 5. 인터페이스 객체 생성
 val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 //-------
+*/
+
 
 
 // Retrofit

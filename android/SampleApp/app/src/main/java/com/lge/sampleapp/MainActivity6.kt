@@ -1,25 +1,33 @@
 package com.lge.sampleapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import com.lge.sampleapp.databinding.MainActivity5Binding
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface GithubApi {
-    @GET("/users/{login}")
-    fun getUser(@Path("login") login: String): Call<User>
+private val httpClient = OkHttpClient.Builder()
+    .apply {
+        addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+    }.build()
 
-    @GET("/search/users")
-    fun searchUsers(
-        @Query("q") query: String,
-        @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10
-    ): Call<SearchResult>
-}
+
+val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 
 // RxJava3 / Android
 // implementation 'io.reactivex.rxjava3:rxjava:3.0.13'
@@ -70,13 +78,50 @@ interface GithubApi {
 // : Observer가 Observable을 구독할 때 형성되는 이벤트 스트림은 자원입니다.
 //   유효하지 않은 경우, 반드시 명시적인 해지가 필요합니다.
 
+private val retrofit: Retrofit = Retrofit.Builder().apply {
+    baseUrl("https://api.github.com")
+    client(httpClient)
+
+    val gson = GsonBuilder().apply {
+        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+    }.create()
+
+    addConverterFactory(GsonConverterFactory.create(gson))
+
+    // Call<T> -> Adapter -> Observable<T>
+    addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+
+}.build()
 
 
+interface GithubApi {
+    @GET("/users/{login}")
+    fun getUser(@Path("login") login: String): Call<User>
 
+    @GET("/users/{login}")
+    fun getUserRx(@Path("login") login: String): Observable<User>
 
+    @GET("/search/users")
+    fun searchUsers(
+        @Query("q") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 10
+    ): Call<SearchResult>
+
+    @GET("/search/users")
+    fun searchUsersRx(
+        @Query("q") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 10
+    ): Observable<SearchResult>
+}
 
 
 class MainActivity6 : AppCompatActivity() {
+    companion object {
+        private const val TAG = "MainActivity6"
+    }
+
     private val binding: MainActivity5Binding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +129,34 @@ class MainActivity6 : AppCompatActivity() {
 
         binding.loadButton.setOnClickListener {
 
+
+            val observable = githubApi.getUserRx("Google")
+
+            // observable.subscribe({ }, { }, { })
+            observable.subscribeBy(
+                onNext = { user ->
+                    Log.i(TAG, "onNext: $user")
+                },
+                onError = { t ->
+                    Log.e(TAG, "onError: ${t.localizedMessage}", t)
+                },
+                onComplete = {
+                    Log.i(TAG, "onComplete")
+                }
+            )
+
+
         }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
