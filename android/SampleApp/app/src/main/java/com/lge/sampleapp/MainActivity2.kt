@@ -23,7 +23,8 @@ class MainActivity2 : AppCompatActivity() {
         //  : savedInstanceState == null
 
         if (savedInstanceState == null) {
-            val fragment = MainFragment()
+            // val fragment = MainFragment()
+            val fragment = ListFragment()
 
             /*
             supportFragmentManager
@@ -155,8 +156,6 @@ class ListFragment : Fragment(R.layout.list_fragment) {
 // RecyclerView
 // 1) ViewHolder
 // 2) ListAdapter
-
-
 private class ListAdapter(var items: List<String> = emptyList()) :
     RecyclerView.Adapter<ListAdapter.Holder>() {
 
