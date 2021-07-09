@@ -143,6 +143,7 @@ class MainActivity6 : AppCompatActivity() {
             val observable = githubApi.getUserRx("Google")
 
             // observable.subscribe({ }, { }, { })
+            /*
             observable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
@@ -161,6 +162,31 @@ class MainActivity6 : AppCompatActivity() {
                     onComplete = {
                         Log.i(TAG, "onComplete")
                     }
+                )
+            */
+
+            githubApi.searchUsersRx("hello", perPage = 100) // Observable<SearchResult>
+                .map {           // Observable<SearchResult> -> map -> Observable<List<User>>
+                    it.items.shuffled()
+                }
+                .filter {
+                    it.isNotEmpty()
+                }
+                .map {          // Observable<List<User>> -> map -> Observable<String>
+                    it.first().login
+                }
+                .flatMap {          // Observable<String> -> map     -> Observable<Observable<User>>
+                                    // Observable<String> -> flatMap -> Observable<User>
+                    githubApi.getUserRx(it) // Observable<User>
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onNext = { user ->
+                        update(user)
+                    },
+                    onError = { t ->
+                        Log.e(TAG, "onError: ${t.localizedMessage}", t)
+                    },
                 )
 
 
