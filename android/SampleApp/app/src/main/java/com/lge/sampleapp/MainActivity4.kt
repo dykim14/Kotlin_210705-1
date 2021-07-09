@@ -3,6 +3,9 @@ package com.lge.sampleapp
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.GrayscaleTransformation
 import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -158,10 +161,25 @@ class MainActivity4 : AppCompatActivity() {
 
             // 1) id kotlin-kapt 플러그인 추가
             // 2) kapt 'com.github.bumptech.glide:compiler:4.12.0'
+            /*
             Glide.with(this)
                 .load(user.avatarUrl)
                 .circleCrop()
                 .into(binding.avatarImageView)
+            */
+
+            // Kotlin Image Processing Library - coil
+            //  : implementation 'io.coil-kt:coil:1.2.2'
+            //  => Extension Function
+            binding.avatarImageView.load(user.avatarUrl) {
+                transformations(
+                    CircleCropTransformation(),
+                    GrayscaleTransformation()
+                )
+                crossfade(300)
+            }
+
+
         }
 
     }
