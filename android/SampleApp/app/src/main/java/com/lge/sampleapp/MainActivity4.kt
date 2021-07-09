@@ -6,13 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.GrayscaleTransformation
-import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.lge.sampleapp.databinding.MainActivity4Binding
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.IOException
 
@@ -65,6 +62,7 @@ class MainActivity4 : AppCompatActivity() {
         const val TAG = "MainActivity4"
     }
 
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -148,8 +146,59 @@ class MainActivity4 : AppCompatActivity() {
             // enqueue: 비동기
         }
     }
+    */
 
-    fun update(user: User) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding.loadButton.setOnClickListener {
+            val gson = GsonBuilder().apply {
+                setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            }.create()
+
+            val httpClient = OkHttpClient.Builder()
+                .apply {
+                    addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    })
+                }.build()
+
+            val request = Request.Builder().apply {
+                get()
+                url("https://api.github.com/users/JakeWharton")
+            }.build()
+
+            val call = httpClient.newCall(request)
+
+            // 비동기: enqueue
+            call.enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.e(TAG, e.localizedMessage, e)
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    if (response.isSuccessful) {
+
+                        response.body?.string()?.let { json ->
+                            Log.i(TAG, "JSON: $json")
+
+                            val user: User = gson.fromJson(json, User::class.java)
+                            Log.i(TAG, "User: $user")
+
+
+                            update(user)
+                        }
+
+                    }
+                }
+            })
+
+        }
+
+    }
+
+
+    private fun update(user: User) {
         // UI 업데이트는 UI 스레드에서 수행되어야 합니다.
         runOnUiThread {
             binding.loginTextView.text = user.login
