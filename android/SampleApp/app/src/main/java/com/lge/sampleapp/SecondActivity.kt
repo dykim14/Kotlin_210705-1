@@ -30,9 +30,9 @@ class SecondActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // val user = intent.getParcelableExtra<User>("user")
-        val user: User? = intent.getParcelableExtra("user")
-        if (user != null) {
-            Log.i(TAG1, "user: $user")
-        }
+//        val user: User? = intent.getParcelableExtra("user")
+//        if (user != null) {
+//            Log.i(TAG1, "user: $user")
+//        }
     }
 }

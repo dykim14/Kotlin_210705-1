@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import com.lge.sampleapp.databinding.MainActivity4Binding
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -48,7 +49,7 @@ import kotlin.math.log
 data class User(
     val login: String,
     val id: Int,
-    val avatarUrl: String,
+    @field:SerializedName("avatar_url") val avatarUrl: String,
     val type: String,
     val name: String
 )
