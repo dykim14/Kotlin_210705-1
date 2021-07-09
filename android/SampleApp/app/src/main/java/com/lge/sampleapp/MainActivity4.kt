@@ -3,7 +3,9 @@ package com.lge.sampleapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import com.lge.sampleapp.databinding.MainActivity4Binding
 import okhttp3.OkHttpClient
@@ -49,7 +51,8 @@ import kotlin.math.log
 data class User(
     val login: String,
     val id: Int,
-    @field:SerializedName("avatar_url") val avatarUrl: String,
+    // @field:SerializedName("avatar_url") val avatarUrl: String,
+    val avatarUrl: String,
     val type: String,
     val name: String
 )
@@ -103,7 +106,10 @@ class MainActivity4 : AppCompatActivity() {
             }).start()
             */
 
-            val gson = Gson()
+            // val gson = Gson()
+            val gson = GsonBuilder().apply {
+                setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            }.create()
 
             Thread {
                 try {
