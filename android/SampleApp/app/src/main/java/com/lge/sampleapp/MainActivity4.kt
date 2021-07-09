@@ -2,10 +2,33 @@ package com.lge.sampleapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.lge.sampleapp.databinding.MainActivity4Binding
+
+
+// https://api.github.com/users/JakeWharton
+// - 코틀린에서도 HttpClient를 OkHttpClient를 사용합니다.
+//  => 의존성 추가
+
+
+//  => 버전을 편리하게 관리할 수 있는 방법 - BOM
+//    def okhttp_version = "4.9.0"
+//    implementation  "com.squareup.okhttp3:okhttp:$okhttp_version"
+//    implementation  "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+//    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+//
+//    implementation 'com.squareup.okhttp3:okhttp'
+//    implementation 'com.squareup.okhttp3:logging-interceptor'
+
 
 class MainActivity4 : AppCompatActivity() {
+    private val binding: MainActivity4Binding by viewBinding()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity4)
+
+        binding.loadButton.setOnClickListener {
+
+        }
     }
 }
