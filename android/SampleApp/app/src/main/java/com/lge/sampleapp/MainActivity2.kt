@@ -129,7 +129,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 }
 
+
 // RecyclerView의 ViewHolder에서도 View Binding을 사용할 수 있습니다.
+// RecyclerView는 각 아이템에 대한 레이아웃을 추가해야 합니다.
+//   - layout/user_list_item.xml
 class ListFragment : Fragment(R.layout.list_fragment) {
 
 }
