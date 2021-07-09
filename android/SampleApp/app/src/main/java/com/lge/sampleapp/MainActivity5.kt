@@ -105,6 +105,9 @@ class MainActivity5 : AppCompatActivity() {
                         val user = result.items.shuffled().firstOrNull()
                             ?: return@enqueue
 
+
+                        Log.i(TAG, "name: ${user.name?.length}")
+
                         update(user)
 
                     },

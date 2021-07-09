@@ -52,7 +52,8 @@ data class User(
     // @field:SerializedName("avatar_url") val avatarUrl: String,
     val avatarUrl: String,
     val type: String,
-    val name: String
+    val name: String?
+    // 위의 name이 Nullable이 되어야 하는 이유를 이해해야 합니다.
 )
 
 class MainActivity4 : AppCompatActivity() {
