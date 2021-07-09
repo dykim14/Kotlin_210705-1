@@ -37,6 +37,7 @@ data class SearchResult(
 )
 
 // GithubApi.kt
+/*
 interface GithubApi {
 
     @GET("/users/{login}")
@@ -50,6 +51,7 @@ interface GithubApi {
         @Query("per_page") perPage: Int = 10
     ): Call<SearchResult>
 }
+*/
 
 // 3. OKHttpClient 객체 생성
 private val httpClient = OkHttpClient.Builder()
