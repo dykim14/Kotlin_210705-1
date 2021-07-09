@@ -38,7 +38,6 @@ class MainActivity2 : AppCompatActivity() {
             }
 
 
-
         }
     }
 }
@@ -79,7 +78,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 */
 
 // View Binding - Fragment
-
+/*
 class MainFragment : Fragment() {
 
     // layout/main_fragment.xml
@@ -114,10 +113,10 @@ class MainFragment : Fragment() {
         _binding = null
     }
 }
+*/
 
 
-class MainFragment2 : Fragment(R.layout.main_fragment) {
-
+class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -128,9 +127,12 @@ class MainFragment2 : Fragment(R.layout.main_fragment) {
             binding.nameTextView.text = "Hello, Kotlin2"
         }
     }
-
 }
 
+// RecyclerView의 ViewHolder에서도 View Binding을 사용할 수 있습니다.
+class ListFragment : Fragment(R.layout.list_fragment) {
+
+}
 
 
 
