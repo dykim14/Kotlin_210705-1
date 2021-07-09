@@ -143,8 +143,12 @@ class ListFragment : Fragment(R.layout.list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val users = listOf("Tom", "Bob", "Alice")
+
         val binding = ListFragmentBinding.bind(view)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = ListAdapter(users)
+
     }
 }
 
