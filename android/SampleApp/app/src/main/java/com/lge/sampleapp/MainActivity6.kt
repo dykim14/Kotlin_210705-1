@@ -27,8 +27,6 @@ private val httpClient = OkHttpClient.Builder()
     }.build()
 
 
-val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
-
 // RxJava3 / Android
 // implementation 'io.reactivex.rxjava3:rxjava:3.0.13'
 // implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
@@ -92,6 +90,7 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
     addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 
 }.build()
+val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 
 
 interface GithubApi {
