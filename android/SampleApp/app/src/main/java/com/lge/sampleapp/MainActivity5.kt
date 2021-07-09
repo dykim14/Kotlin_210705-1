@@ -59,6 +59,11 @@ val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 //-------
 
 
+// Retrofit
+// 1. Request 자동으로 생성합니다.
+// 2. JSON deserialization 을 자동으로 처리합니다. - converter(Gson)
+// 3. 콜백이 UI 스레드에서 수행되는 것을 보장합니다.
+
 class MainActivity5 : AppCompatActivity() {
     companion object {
         const val TAG = "MainActivity5"
@@ -98,16 +103,14 @@ class MainActivity5 : AppCompatActivity() {
     }
 
     private fun update(user: User) {
-        runOnUiThread {
-            binding.loginTextView.text = user.login
+        binding.loginTextView.text = user.login
 
-            binding.avatarImageView.load(user.avatarUrl) {
-                transformations(
-                    CircleCropTransformation(),
-                    GrayscaleTransformation()
-                )
-                crossfade(300)
-            }
+        binding.avatarImageView.load(user.avatarUrl) {
+            transformations(
+                CircleCropTransformation(),
+                GrayscaleTransformation()
+            )
+            crossfade(300)
         }
     }
 }
