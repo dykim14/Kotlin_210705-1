@@ -18,6 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 // 1. Retrofit 의존성 추가
@@ -27,11 +28,26 @@ import retrofit2.http.Path
 // 2. API interface 정의
 //    => 인터페이스를 이용해서, 자동으로 Request / Call 객체를 생성합니다.
 
+
+data class SearchResult(
+    val totalCount: Int,
+    val incompleteResults: Boolean,
+    val items: List<User>
+)
+
 // GithubApi.kt
 interface GithubApi {
 
     @GET("/users/{login}")
     fun getUser(@Path("login") login: String): Call<User>
+
+    // https://api.github.com/search/users?q=hello&per_page=10&page=3
+    @GET("/search/users")
+    fun searchUsers(
+        @Query("q") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 10
+    ): Call<SearchResult>
 }
 
 // 3. OKHttpClient 객체 생성
@@ -75,9 +91,31 @@ class MainActivity5 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding.loadButton.setOnClickListener {
+
+
+            githubApi.searchUsers("hello")
+                .enqueue(
+                    onResponse = { response ->
+                        if (response.isSuccessful.not()) {
+                            return@enqueue
+                        }
+
+                        val result = response.body() ?: return@enqueue
+
+                        val user = result.items.shuffled().firstOrNull()
+                            ?: return@enqueue
+
+                        update(user)
+
+                    },
+                    onFailure = { t ->
+                        Log.e(TAG, t.localizedMessage, t)
+                    }
+                )
+
+
+            /*
             val call = githubApi.getUser("Google")
-
-
             call.enqueue(
                 onResponse = { response ->
                     if (response.isSuccessful.not()) {
@@ -91,7 +129,8 @@ class MainActivity5 : AppCompatActivity() {
                     Log.e(TAG, t.localizedMessage, t)
                 }
             )
-            
+            */
+
             /*
             call.enqueue(object : Callback<User> {
                 override fun onResponse(
