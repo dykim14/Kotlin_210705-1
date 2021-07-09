@@ -254,9 +254,10 @@ class MainActivity4 : AppCompatActivity() {
     }
 }
 
-fun Call.enqueue(
-    onResponse: (response: Response) -> Unit,
-    onFailure: (e: IOException) -> Unit
+// crossinline: 인라인 함수 안에서 다른 함수에서 호출되는 함수를 인라인화 한다.
+inline fun Call.enqueue(
+    crossinline onResponse: (response: Response) -> Unit,
+    crossinline onFailure: (e: IOException) -> Unit
 ) {
 
     enqueue(object : Callback {
@@ -266,7 +267,6 @@ fun Call.enqueue(
         override fun onResponse(call: Call, response: Response) =
             onResponse(response)
     })
-
 }
 
 
